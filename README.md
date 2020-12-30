@@ -24,16 +24,6 @@ https://cliptor.timsusa.vercel.app/
 
 https://timsusa.github.io/cliptor/
 
-## Hardware Suggestions (tested successfully)
-
-### Working Device
-
-- https://www.raspberrypi.org/products/raspberry-pi-400/ or win or macosx device
-
-### Touch Device
-
-https://www.waveshare.com/wiki/7inch_HDMI_LCD_(H)_(with_case)
-
 ## Installation
 
 ```
