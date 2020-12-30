@@ -1,14 +1,41 @@
+import { Clip } from './Clip'
 import React from 'react'
 import { useTheme } from '@material-ui/styles'
 import { makeStyles } from '@material-ui/styles'
+import { useSelector, useDispatch } from 'react-redux'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import Button from '@material-ui/core/Button'
+import { actionsContent } from './global-state'
 
 export function App() {
+  const { addTrack, addClipToTrack } = actionsContent
   const theme = useTheme()
+  const dispatch = useDispatch()
   const classes = makeStyles(styles.bind(this, theme))()
-
+  const tracks = useSelector((state) => state.content.tracks || [])
   return (
     <div className={classes.root}>
-      <div className={classes.appBar}>TIm</div>
+      {tracks.map((track) => {
+        return (
+          <div key={track.id} style={{ display: 'inline-block' }}>
+            <List>
+              <Button
+                variant='contained'
+                onClick={() => dispatch(addClipToTrack({ id: track.id }))}
+              >
+                Add Clip ToTrack
+              </Button>
+              {(track.data || []).map(({ id, src }) => (
+                <ListItem key={id}>
+                  <Clip src={src} parentId={track.id} id={id} />
+                </ListItem>
+              ))}
+            </List>
+          </div>
+        )
+      })}
+      <Button onClick={() => dispatch(addTrack())}>Add Track</Button>
     </div>
   )
 }

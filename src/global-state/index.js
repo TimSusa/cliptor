@@ -1,8 +1,37 @@
 import { combineReducers } from 'redux'
 import { createSlice } from '@reduxjs/toolkit'
 import { viewSettings } from './reducers/view-settings'
+import { track } from './reducers/track'
+import { content } from './reducers/content'
 
 //
+// track
+//
+//
+const { reducer: reducerTrack, actions: actionsTracksOne } = createSlice({
+  name: 'track',
+  initialState: {
+    track: []
+  },
+  reducers: track
+})
+
+export const actionsTrack = actionsTracksOne
+
+//
+// content
+//
+//
+const { reducer: reducerContent, actions: actionsContents } = createSlice({
+  name: 'content',
+  initialState: {
+    tracks: []
+  },
+  reducers: content
+})
+
+export const actionsContent = actionsContents
+
 // ViewSettings
 //
 export const PAGE_TYPES = {
@@ -57,5 +86,7 @@ export const actionsViewSettings = actionsViewSettingss
 export const reducerViewSettings = reducerViewSettingss
 
 export const reducer = combineReducers({
+  track: reducerTrack,
+  content: reducerContent,
   viewSettings: reducerViewSettings
 })
