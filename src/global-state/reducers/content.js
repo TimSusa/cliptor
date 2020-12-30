@@ -7,7 +7,8 @@ export const content = {
       data: [
         {
           id: `clip-${uuidv4()}`,
-          src: './bd.wav'
+          src: './demo.mp3',
+          volume: 1
         }
       ]
     }
@@ -21,7 +22,8 @@ export const content = {
         ...state.tracks[idx].data,
         {
           id: `clip-${uuidv4()}`,
-          src: './bd.wav'
+          src: './demo.mp3',
+          volume: 1
         }
       ]
     }
@@ -32,5 +34,12 @@ export const content = {
       (item) => item.id === clipId
     )
     state.tracks[tracksIdx].data[clipIdx].src = src
+  },
+  changeClipVolume(state, { payload: { tracksId, clipId, volume } }) {
+    const tracksIdx = state.tracks.findIndex((item) => item.id === tracksId)
+    const clipIdx = state.tracks[tracksIdx].data.findIndex(
+      (item) => item.id === clipId
+    )
+    state.tracks[tracksIdx].data[clipIdx].volume = volume
   }
 }

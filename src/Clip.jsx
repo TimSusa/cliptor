@@ -8,17 +8,37 @@ import { actionsContent } from './global-state'
 
 export function Clip(props) {
   const dispatch = useDispatch()
-  const { changeClipSrc } = actionsContent
-  const { src, tracksId, clipId } = props
+  const { changeClipSrc, changeClipVolume } = actionsContent
+  const { src, tracksId, clipId, volume } = props
   const [play, { stop, pause, isPlaying, sound }] = useSound(src, {
-    interrupt: false
+    loop: true,
+    volume: 1
   })
+  console.log(sound)
   return (
     <React.Fragment>
       <Typography>{src.substr(src.length - 35)}</Typography>
+      <Typography> Pos/Sec: </Typography>
       <Typography>
-        {(sound && Array.isArray(sound._sounds) && sound._sounds[0]._seek) || 0}
+        {sound &&
+          Array.isArray(sound._sounds) &&
+          parseInt((parseFloat(sound._sounds[0]._seek, 10) * 1000) / 1000, 10)}
       </Typography>
+      <input
+        onChange={(e) => {
+          const val = parseFloat(e.target.value / 100)
+          console.log('set volueme ', val, sound._volume)
+          sound.volume(val)
+          dispatch(changeClipVolume({ clipId, tracksId, volume: val }))
+        }}
+        type='range'
+        min='0'
+        max='100'
+        value={volume * 100}
+        className='slider'
+        id='myRange'
+      />
+
       <Button
         style={{ marginLeft: 8, background: isPlaying ? 'green' : 'grey' }}
         draggable='false'
@@ -55,7 +75,7 @@ export function Clip(props) {
       >
         {isPlaying ? 'Pause' : 'Play' || 'None'}
       </Button>
-      {isPlaying && (
+      {
         <Button
           variant='outlined'
           onClick={() => {
@@ -65,7 +85,7 @@ export function Clip(props) {
         >
           Stop
         </Button>
-      )}
+      }
     </React.Fragment>
   )
 }
@@ -73,5 +93,6 @@ export function Clip(props) {
 Clip.propTypes = {
   src: PropTypes.string,
   clipId: PropTypes.string,
-  tracksId: PropTypes.string
+  tracksId: PropTypes.string,
+  volume: PropTypes.number
 }

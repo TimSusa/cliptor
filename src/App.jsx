@@ -18,12 +18,24 @@ export function App() {
     <div className={classes.root}>
       <List>
         <ListItem>
-          <Button onClick={() => dispatch(addTrack())}>Add Track</Button>
+          <Button variant='contained' onClick={() => dispatch(addTrack())}>
+            Add Track
+          </Button>
         </ListItem>
       </List>
       {tracks.map((track) => {
         return (
           <List key={track.id} style={{ display: 'inline-block' }}>
+            {(track.data || []).map(({ id, src, volume }) => (
+              <ListItem key={id}>
+                <Clip
+                  src={src}
+                  tracksId={track.id}
+                  clipId={id}
+                  volume={volume}
+                />
+              </ListItem>
+            ))}
             <ListItem>
               <Button
                 variant='contained'
@@ -32,11 +44,6 @@ export function App() {
                 Add Clip ToTrack
               </Button>
             </ListItem>
-            {(track.data || []).map(({ id, src }) => (
-              <ListItem key={id}>
-                <Clip src={src} tracksId={track.id} clipId={id} />
-              </ListItem>
-            ))}
           </List>
         )
       })}
