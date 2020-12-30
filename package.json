@@ -1,0 +1,146 @@
+{
+  "name": "cliptor",
+  "author": "timmsusa@googlemail.com",
+  "description": "Cliptor was invented to have the same functionality available like ablton live matrix sequencer",
+  "version": "0.0.1",
+  "main": "./src/app/electron.js",
+  "homepage": "./",
+  "private": false,
+  "license": "MIT",
+  "repository": "https://github.com/TimSusa/cliptor.git",
+  "files": [
+    "build/**/*",
+    "node_modules/**/*"
+  ],
+  "build": {
+    "appId": "com.electron.cliptor",
+    "asar": true,
+    "asarUnpack": true,
+    "releaseInfo": {
+      "releaseNotesFile": "./CHANGELOG.md"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "build/icons/icon.ico",
+      "publish": [
+        "github"
+      ]
+    },
+    "mac": {
+      "category": "your.app.category.type",
+      "icon": "build/icons/icon.icns",
+      "publish": [
+        "github"
+      ]
+    },
+    "linux": {
+      "target": {
+        "target": "appimage",
+        "arch": [
+          "armv7l"
+        ]
+      },
+      "category": "midi.touch.device",
+      "icon": "build/icons/icon.icns",
+      "publish": [
+        "github"
+      ]
+    },
+    "files": [
+      "build/**/*"
+    ],
+    "publish": {
+      "provider": "github",
+      "publishAutoUpdate": true
+    }
+  },
+  "dependencies": {
+    "@material-ui/core": "4.11.2",
+    "@material-ui/icons": "4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.57",
+    "@material-ui/styles": "4.11.2",
+    "@material-ui/system": "4.11.2",
+    "@reduxjs/toolkit": "1.5.0",
+    "debounce": "1.2.0",
+    "downshift": "6.0.6",
+    "electron-is-dev": "1.2.0",
+    "electron-log": "4.3.1",
+    "electron-window-state": "5.0.3",
+    "keycode": "2.2.0",
+    "localforage": "1.9.0",
+    "lodash": "4.17.20",
+    "react": "17.0.1",
+    "react-color": "2.18.1",
+    "react-dom": "17.0.1",
+    "react-redux": "7.2.2",
+    "redux": "4.0.5",
+    "source-map-explorer": "2.5.1",
+    "tonal": "2.2.2",
+    "typeface-roboto": "1.1.13",
+    "use-sound": "^2.0.1",
+    "webmidi": "2.5.1"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "chai": "4.2.0",
+    "chai-as-promised": "7.1.1",
+    "chai-roughly": "1.0.0",
+    "concurrently": "5.3.0",
+    "cross-env": "^7.0.3",
+    "electron": "11.1.1",
+    "electron-builder": "22.9.1",
+    "electron-publish": "22.9.1",
+    "electron-reload": "^1.5.0",
+    "enzyme": "3.11.0",
+    "eslint": "7.16.0",
+    "eslint-config-prettier": "7.1.0",
+    "eslint-plugin-babel": "5.3.1",
+    "eslint-plugin-prettier": "3.3.0",
+    "eslint-plugin-react": "7.21.5",
+    "eslint-plugin-react-hooks": "4.2.0",
+    "mocha": "8.1.3",
+    "nodemon": "^2.0.6",
+    "react-scripts": "4.0.1",
+    "redux-devtools-extension": "2.13.8",
+    "redux-mock-store": "1.5.3",
+    "rimraf": "3.0.2",
+    "standard-version": "9.0.0",
+    "vercel": "latest",
+    "wait-for-localhost": "3.3.0",
+    "wait-for-localhost-cli": "2.0.0"
+  },
+  "scripts": {
+    "start": "cross-env REACT_APP_IS_WEB_MODE=true react-scripts start",
+    "dev": "cross-env REACT_APP_IS_WEB_MODE=false yarn run clean && concurrently \"BROWSER=none react-scripts start\" \"wait-for-localhost 3000 && nodemon --exec \"\"electron ./\"\"\"",
+    "build-ci": "cross-env REACT_APP_IS_WEB_MODE=false yarn clean:dist && react-scripts build && yarn cp-src-electron && yarn build:app-ci",
+    "build:app": "electron-builder -c.extraMetadata.main=build/app/electron.js --mac",
+    "build:app-ci": "electron-builder -c.extraMetadata.main=build/app/electron.js -mwl",
+    "cp-src-electron": "mkdir build/app && cp -r ./src/app/ build/app",
+    "build": "cross-env REACT_APP_IS_WEB_MODE=true react-scripts build",
+    "build:doc": "cd cliptor-doc && yarn build && cd ../..",
+    "lint": "eslint . -c .eslintrc",
+    "test": "yarn lint && yarn test",
+    "analyze": "source-map-explorer build/static/js/main.*",
+    "test-e2e-ci": "concurrently \"BROWSER=none react-scripts start\" \"wait-for-localhost 3000 && CI=true mocha --colors\"",
+    "postinstall": "yarn clean && electron-builder install-app-deps",
+    "clean": "yarn clean:dist",
+    "clean:dist": "rimraf dist && rimraf build && mkdir build",
+    "pre-release-ci": "release prepatch -t $(git describe --abbrev=0) --show-url --overwrite",
+    "release-ci": "git push origin $(git describe --abbrev=0)",
+    "release-me": "standard-version -r $1",
+    "deploy:cliptor-doc": "cd cliptor-doc/ && yarn && yarn deploy && cd ..",
+    "deploy": "vercel"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

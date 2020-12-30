@@ -1,0 +1,69 @@
+{
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
+
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true,
+      "arrowFunctions": true,
+      "classes": true,
+      "spread": true
+    },
+    "ecmaVersion": 9,
+    "sourceType": "module"
+  },
+  "plugins": ["react", "babel", "react-hooks"],
+  "rules": {
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "linebreak-style": ["error", "unix"],
+    "quotes": ["error", "single"],
+    "semi": ["error", "never"],
+    "no-invalid-this": 0,
+    "babel/no-invalid-this": 1,
+    "camelcase": 0,
+    "comma-dangle": 0,
+    "guard-for-in": 1,
+    "indent": [
+      2,
+      2,
+      {
+        "SwitchCase": 1
+      }
+    ],
+    // "jsx-a11y/interactive-supports-focus": 1,
+    "max-len": 0,
+    "new-cap": [
+      0,
+      {
+        "capIsNewExceptions": ["List", "Map", "Set"]
+      }
+    ],
+    "no-alert": 1,
+    "no-console": 1,
+    "no-unused-vars": 2,
+    "no-use-before-define": [
+      "error",
+      {
+        "functions": false
+      }
+    ],
+    "react/jsx-boolean-value": 0,
+    "react/jsx-filename-extension": 0,
+    "react/no-multi-comp": 0,
+    "global-require": 0
+  },
+  "settings": {
+    "react": {
+      "createClass": "createReactClass",
+      "pragma": "React",
+      "version": "detect",
+      "flowVersion": "0.53"
+    }
+  }
+}
