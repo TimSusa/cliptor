@@ -16,26 +16,30 @@ export function App() {
   const tracks = useSelector((state) => state.content.tracks || [])
   return (
     <div className={classes.root}>
+      <List>
+        <ListItem>
+          <Button onClick={() => dispatch(addTrack())}>Add Track</Button>
+        </ListItem>
+      </List>
       {tracks.map((track) => {
         return (
-          <div key={track.id} style={{ display: 'inline-block' }}>
-            <List>
+          <List key={track.id} style={{ display: 'inline-block' }}>
+            <ListItem>
               <Button
                 variant='contained'
                 onClick={() => dispatch(addClipToTrack({ id: track.id }))}
               >
                 Add Clip ToTrack
               </Button>
-              {(track.data || []).map(({ id, src }) => (
-                <ListItem key={id}>
-                  <Clip src={src} parentId={track.id} id={id} />
-                </ListItem>
-              ))}
-            </List>
-          </div>
+            </ListItem>
+            {(track.data || []).map(({ id, src }) => (
+              <ListItem key={id}>
+                <Clip src={src} tracksId={track.id} clipId={id} />
+              </ListItem>
+            ))}
+          </List>
         )
       })}
-      <Button onClick={() => dispatch(addTrack())}>Add Track</Button>
     </div>
   )
 }

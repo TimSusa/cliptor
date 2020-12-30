@@ -32,6 +32,8 @@ yarn
 
 # Webapp
 
+The webapp will not work properly with dragging and dropping files. This is only supported int eh elctron app.
+
 ## Start Development
 
 ```

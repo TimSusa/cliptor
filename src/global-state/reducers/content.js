@@ -25,5 +25,12 @@ export const content = {
         }
       ]
     }
+  },
+  changeClipSrc(state, { payload: { tracksId, clipId, src } }) {
+    const tracksIdx = state.tracks.findIndex((item) => item.id === tracksId)
+    const clipIdx = state.tracks[tracksIdx].data.findIndex(
+      (item) => item.id === clipId
+    )
+    state.tracks[tracksIdx].data[clipIdx].src = src
   }
 }

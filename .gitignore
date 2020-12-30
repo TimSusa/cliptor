@@ -5,3 +5,6 @@ npm-debug.log
 .github
 package-lock.json
 */**/__mocks__
+.vercel
+build
+dist
