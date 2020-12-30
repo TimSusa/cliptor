@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="250" src="./docs/cliptor-logo.png">
+  <img width="250" src="./docs/screenshot.png">
 </p>
 
 # cliptor
