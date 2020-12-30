@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="100%" src="./docs/screenshot.png">
+  <img width="250" src="./docs/cliptor-logo.svg">
 </p>
 
 # cliptor
@@ -10,6 +10,7 @@ Start the app, add your clips, drag and drop your files to the clips and you can
 
 - Easy extending your clip matrix
 - Drag and Drop your sample file easily to your clips
+- Cliptor reads all common sound files like mp3, wav, ogg or flac
 - Start, Stop and Pause your clips
 - Change volume for each clip
 
@@ -23,10 +24,12 @@ Go To https://github.com/TimSusa/cliptor/releases and find the latest or beta re
 
 ## Live-Web-Demo
 
+Note: This is just for demo purposes. Better download and install (https://github.com/TimSusa/cliptor/releases ) the electron app to enjoy all the features.
+
 https://cliptor.timsusa.vercel.app/
 
 <p align="center">
-  <img width="250" src="./docs/cliptor-shortcut-d.gif">
+  <img width="100%" src="./docs/screenshot.png">
 </p>
 
 ## Official Webpage and Documentation

@@ -12,9 +12,10 @@ export function Clip(props) {
   const { src, tracksId, clipId, volume } = props
   const [play, { stop, pause, isPlaying, sound }] = useSound(src, {
     loop: true,
-    volume: 1
+    preload: true,
+    volume: 1,
+    html5: true
   })
-  console.log(sound)
   return (
     <React.Fragment>
       <Typography>{src.substr(src.length - 35)}</Typography>
@@ -44,12 +45,10 @@ export function Clip(props) {
         draggable='false'
         onClick={() => {
           if (isPlaying) {
-            sound.fade(1, 0, 500)
-
+            sound.fade(volume, 0, 500)
             pause()
           } else {
-            sound.fade(0, 1, 500)
-
+            sound.fade(0, volume, 500)
             play()
           }
         }}
@@ -79,7 +78,7 @@ export function Clip(props) {
         <Button
           variant='outlined'
           onClick={() => {
-            sound.fade(1, 0, 500)
+            sound.fade(volume, 0, 500)
             stop()
           }}
         >

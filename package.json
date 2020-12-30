@@ -2,7 +2,7 @@
   "name": "cliptor",
   "author": "timmsusa@googlemail.com",
   "description": "Cliptor was invented to have the same functionality available like ablton live matrix sequencer",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "./src/app/electron.js",
   "homepage": "./",
   "private": false,
@@ -40,7 +40,7 @@
           "armv7l"
         ]
       },
-      "category": "midi.touch.device",
+      "category": "cliptor",
       "icon": "build/icons/icon.icns",
       "publish": [
         "github"
@@ -113,7 +113,7 @@
   "scripts": {
     "start": "cross-env REACT_APP_IS_WEB_MODE=true react-scripts start",
     "dev": "cross-env REACT_APP_IS_WEB_MODE=false yarn run clean && concurrently \"BROWSER=none react-scripts start\" \"wait-for-localhost 3000 && nodemon --exec \"\"electron ./\"\"\"",
-    "build-ci": "cross-env REACT_APP_IS_WEB_MODE=false yarn clean:dist && react-scripts build && yarn cp-src-electron && yarn build:app",
+    "build-ci": "cross-env REACT_APP_IS_WEB_MODE=false yarn clean:dist && react-scripts build && yarn cp-src-electron && yarn build:app-ci",
     "build:app": "electron-builder -c.extraMetadata.main=build/app/electron.js --mac",
     "build:app-ci": "electron-builder -c.extraMetadata.main=build/app/electron.js -mwl",
     "cp-src-electron": "mkdir build/app && cp -r ./src/app/ build/app",
