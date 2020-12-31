@@ -36,14 +36,9 @@ export function App() {
               minHeight: 'calc(100vh'
             }}
           >
-            {(track.data || []).map(({ id, src, volume }) => (
+            {(track.data || []).map(({ id, src }) => (
               <ListItem key={id}>
-                <Clip
-                  src={src}
-                  tracksId={track.id}
-                  clipId={id}
-                  volume={volume}
-                />
+                <Clip src={src} tracksId={track.id} clipId={id} />
               </ListItem>
             ))}
             <ListItem>

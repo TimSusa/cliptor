@@ -7,8 +7,9 @@ export const content = {
       data: [
         {
           id: `clip-${uuidv4()}`,
-          src: './demo.mp3',
-          volume: 1
+          src: './bd.wav',
+          volume: 1,
+          isLooping: true
         }
       ]
     }
@@ -23,7 +24,8 @@ export const content = {
         {
           id: `clip-${uuidv4()}`,
           src: './demo.mp3',
-          volume: 1
+          volume: 1,
+          isLooping: true
         }
       ]
     }
@@ -41,5 +43,12 @@ export const content = {
       (item) => item.id === clipId
     )
     state.tracks[tracksIdx].data[clipIdx].volume = volume
+  },
+  toggleIsLooping(state, { payload: { tracksId, clipId, isLooping } }) {
+    const tracksIdx = state.tracks.findIndex((item) => item.id === tracksId)
+    const clipIdx = state.tracks[tracksIdx].data.findIndex(
+      (item) => item.id === clipId
+    )
+    state.tracks[tracksIdx].data[clipIdx].isLooping = isLooping
   }
 }
