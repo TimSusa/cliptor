@@ -10,8 +10,8 @@ Note: You better install the app on your OS to have all features available.
 
 ## Features
 
-- Easy extending your clip matrix
-- Drag and Drop your sample file easily to your clips
+- Easy extending your clip matrix: Add tracks or add clips to tracks
+- Drag and Drop your sample file easily to your clips for every track
 - Cliptor reads all common sound files like mp3, wav, ogg or flac
 - Start, Stop and Pause your clips
 - Change volume for each clip
