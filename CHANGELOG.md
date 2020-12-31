@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.2](https://github.com/TimSusa/cliptor/compare/v0.0.1...v0.0.2) (2020-12-31)
+
+
+### Features
+
+* Establish new logo ([907cabc](https://github.com/TimSusa/cliptor/commit/907cabc81f407126147b94bd28564827a3653b0b))
+
+
+### Bug Fixes
+
+* Remind on last volume change when stopping or pausing ([56f6bf1](https://github.com/TimSusa/cliptor/commit/56f6bf170ce6c8880fc4d5fc4a7f5049d95444ac))
+
 ### 0.0.1 (2020-12-30)
 
 
