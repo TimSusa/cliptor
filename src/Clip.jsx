@@ -8,6 +8,8 @@ import PlayIcon from '@material-ui/icons/PlayArrow'
 import NoLoopIcon from '@material-ui/icons/ArrowRightAlt'
 import LoopIcon from '@material-ui/icons/Loop'
 import PauseIcon from '@material-ui/icons/Pause'
+import MinimizeIcon from '@material-ui/icons/Minimize'
+import MaximizeIcon from '@material-ui/icons/Maximize'
 import WaveSurfer from 'wavesurfer.js'
 import Slider from '@material-ui/core/Slider'
 //import Regions from 'wavesurfer.js/dist/plugin/wavesurfer.regions.min.js'
@@ -24,15 +26,20 @@ const useStyles = makeStyles(() => ({
 export function Clip({ url, tracksId, clipId }) {
   const classes = useStyles()
   const dispatch = useDispatch()
-  const { changeClipSrc, changeClipVolume, toggleIsLooping } = actionsContent
+  const {
+    changeClipSrc,
+    changeClipVolume,
+    toggleIsLooping,
+    toggleIsWaveformShown
+  } = actionsContent
   const tracks = useSelector((state) => state.content.tracks)
   const tracksIdx = tracks.findIndex((item) => item.id === tracksId)
   const clipIdx = tracks[tracksIdx].data.findIndex((item) => item.id === clipId)
-  const { isLooping, volume: volTmp } = tracks[tracksIdx].data[clipIdx]
+  const { isLooping, isWaveformShown, volume } = tracks[tracksIdx].data[clipIdx]
   const waveformRef = useRef(null)
   const wavesurfer = useRef(null)
   const [playing, setPlay] = useState(false)
-  const [volume, setVolume] = useState(volTmp)
+  //const [volume, setVolume] = useState(volTmp)
 
   // create new WaveSurfer instance
   // On component mount and when url changes
@@ -52,7 +59,7 @@ export function Clip({ url, tracksId, clipId }) {
       // make sure object stillavailable when file loaded
       if (wavesurfer.current) {
         wavesurfer.current.setVolume(volume)
-        setVolume(volume)
+        //setVolume(volume)
       }
     })
     wavesurfer.current.on('finish', () => {
@@ -122,9 +129,34 @@ export function Clip({ url, tracksId, clipId }) {
             <NoLoopIcon style={{ width: 16 }} />
           )}
         </IconButton>
+        <IconButton
+          aria-label='show waveform'
+          onClick={() => {
+            dispatch(
+              toggleIsWaveformShown({
+                tracksId,
+                clipId,
+                isWaveformShown: !isWaveformShown
+              })
+            )
+          }}
+        >
+          {isWaveformShown ? (
+            <MinimizeIcon style={{ width: 16 }} />
+          ) : (
+            <MaximizeIcon style={{ width: 16 }} />
+          )}
+        </IconButton>
       </div>
 
-      <div style={{ width: '100%' }} id='waveform' ref={waveformRef} />
+      <div
+        style={{
+          width: '100%',
+          display: isWaveformShown ? 'unset' : 'none'
+        }}
+        id='waveform'
+        ref={waveformRef}
+      />
 
       <div style={{ width: '100%' }}>
         <Slider
@@ -151,7 +183,7 @@ export function Clip({ url, tracksId, clipId }) {
 
     if (newVolume) {
       dispatch(changeClipVolume({ clipId, tracksId, volume: newVolume }))
-      setVolume(newVolume)
+      //setVolume(newVolume)
       wavesurfer.current.setVolume(newVolume || 1)
     }
   }
