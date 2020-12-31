@@ -4,7 +4,9 @@
 
 # cliptor
 
-Start the app, add your clips, drag and drop your files to the clips and you can start looping.
+The app is supposed to just start a couple of samples via buttons. For example you could add, start and stop a sample "hooray" and a sample "applause". However, start the app, add your clips, drag and drop your files to the clips and you can start looping.
+
+Note: You better install the app on your OS to have all features available.
 
 ## Features
 
@@ -31,10 +33,6 @@ https://cliptor.timsusa.vercel.app/
 <p align="center">
   <img width="100%" src="./docs/screenshot.png">
 </p>
-
-## Official Webpage and Documentation
-
-https://timsusa.github.io/cliptor/
 
 ## Installation
 
