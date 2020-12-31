@@ -8,6 +8,7 @@ import ListItem from '@material-ui/core/ListItem'
 import Button from '@material-ui/core/Button'
 import { actionsContent } from './global-state'
 
+//const COLUMNS_WIDTH = 100
 export function App() {
   const { addTrack, addClipToTrack } = actionsContent
   const theme = useTheme()
@@ -25,7 +26,16 @@ export function App() {
       </List>
       {tracks.map((track) => {
         return (
-          <List key={track.id} style={{ display: 'inline-block' }}>
+          <List
+            key={track.id}
+            style={{
+              display: 'inline-block',
+              border: '1px solid grey',
+              borderRadius: '3%',
+              minWidth: `calc(100vw / ${tracks.length}px`,
+              minHeight: 'calc(100vh'
+            }}
+          >
             {(track.data || []).map(({ id, src, volume }) => (
               <ListItem key={id}>
                 <Clip
@@ -41,7 +51,7 @@ export function App() {
                 variant='contained'
                 onClick={() => dispatch(addClipToTrack({ id: track.id }))}
               >
-                Add Clip ToTrack
+                Add Clip
               </Button>
             </ListItem>
           </List>
@@ -56,7 +66,8 @@ function styles(theme) {
     root: {
       width: '100%',
       height: '100%',
-      zIndex: 1
+      zIndex: 1,
+      display: 'flex'
     },
     appFrame: {
       position: 'relative',
