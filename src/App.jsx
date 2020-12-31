@@ -1,11 +1,14 @@
 import { Clip } from './Clip'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useTheme } from '@material-ui/styles'
 import { makeStyles } from '@material-ui/styles'
 import { useSelector, useDispatch } from 'react-redux'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
-import Button from '@material-ui/core/Button'
+import IconButton from '@material-ui/core/IconButton'
+import AddTrackIcon from '@material-ui/icons/PlaylistAdd'
+import AddClipIcon from '@material-ui/icons/Add'
+
 import { actionsContent } from './global-state'
 
 //const COLUMNS_WIDTH = 100
@@ -15,13 +18,18 @@ export function App() {
   const dispatch = useDispatch()
   const classes = makeStyles(styles.bind(this, theme))()
   const tracks = useSelector((state) => state.content.tracks || [])
+
+  useEffect(() => {
+    dispatch(addTrack())
+  }, [addTrack, dispatch])
+
   return (
     <div className={classes.root}>
       <List>
         <ListItem>
-          <Button variant='contained' onClick={() => dispatch(addTrack())}>
-            Add Track
-          </Button>
+          <IconButton variant='contained' onClick={() => dispatch(addTrack())}>
+            <AddTrackIcon></AddTrackIcon>
+          </IconButton>
         </ListItem>
       </List>
       {tracks.map((track) => {
@@ -31,23 +39,24 @@ export function App() {
             style={{
               display: 'inline-block',
               border: '1px solid grey',
-              borderRadius: '3%',
-              minWidth: `calc(100vw / ${tracks.length}px`,
-              minHeight: 'calc(100vh'
+              borderRadius: '5px',
+              width: `calc(100vw / ${tracks.length + 1}`,
+              minHeight: 'calc(100vh',
+              marginRight: 8
             }}
           >
             {(track.data || []).map(({ id, src }) => (
               <ListItem key={id}>
-                <Clip src={src} tracksId={track.id} clipId={id} />
+                <Clip url={src} tracksId={track.id} clipId={id} />
               </ListItem>
             ))}
             <ListItem>
-              <Button
+              <IconButton
                 variant='contained'
                 onClick={() => dispatch(addClipToTrack({ id: track.id }))}
               >
-                Add Clip
-              </Button>
+                <AddClipIcon></AddClipIcon>
+              </IconButton>
             </ListItem>
           </List>
         )
