@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.6](https://github.com/TimSusa/cliptor/compare/v0.0.5...v0.0.6) (2021-01-01)
+
+
+### Features
+
+* Introduce shifting samples forward and backward ([62be32d](https://github.com/TimSusa/cliptor/commit/62be32d96b5d5f39548bcd784e1257ebf980da60))
+
 ### [0.0.5](https://github.com/TimSusa/cliptor/compare/v0.0.4...v0.0.5) (2021-01-01)
 
 
