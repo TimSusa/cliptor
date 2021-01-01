@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.5](https://github.com/TimSusa/cliptor/compare/v0.0.4...v0.0.5) (2021-01-01)
+
+
+### Features
+
+* Add Menubar and loading / saving functionality; Add Demo Example at startup ([5824dd2](https://github.com/TimSusa/cliptor/commit/5824dd25b70e3d606325c7c8b0d4a8bc73fcf4f9))
+
+
+### Bug Fixes
+
+* Scene Playback ([9b74ef5](https://github.com/TimSusa/cliptor/commit/9b74ef59bf9dc1349dda971dc5d41579578b8610))
+
 ### [0.0.4](https://github.com/TimSusa/cliptor/compare/v0.0.2...v0.0.4) (2021-01-01)
 
 
