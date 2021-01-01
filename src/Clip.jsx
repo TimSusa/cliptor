@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
@@ -44,7 +44,7 @@ export function Clip({ url, tracksId, clipId }) {
   ].data[clipIdx]
   const waveformRef = useRef(null)
   const wavesurfer = useRef(null)
-  //const [playing, setPlay] = useState(false)
+  const [playing, setPlay] = useState(isPlaying)
 
   // create new WaveSurfer instance
   // On component mount and when url changes
@@ -61,11 +61,6 @@ export function Clip({ url, tracksId, clipId }) {
       // https://wavesurfer-js.org/docs/methods.html
       // wavesurfer.current.play();
       // setPlay(true);
-      if (isPlaying) {
-        dispatch(toggleIsPlaying({ tracksId, clipId, isPlaying: true }))
-        wavesurfer.current.play()
-      }
-
       // make sure object stillavailable when file loaded
       // if (wavesurfer.current) {
       //   wavesurfer.current.setVolume(volume)
@@ -76,12 +71,19 @@ export function Clip({ url, tracksId, clipId }) {
         wavesurfer.current.playPause()
       }
     })
-
     // Removes events, elements and disconnects Web Audio nodes.
     // when component unmount
     return () => wavesurfer.current.destroy()
-  }, [url, isLooping, isPlaying])
-
+  }, [url])
+  useEffect(() => {
+    if (isPlaying) {
+      dispatch(toggleIsPlaying({ tracksId, clipId, isPlaying: true }))
+      wavesurfer.current.play()
+    } else {
+      dispatch(toggleIsPlaying({ tracksId, clipId, isPlaying: false }))
+      wavesurfer.current.stop()
+    }
+  }, [isPlaying])
   return (
     <div
       className={classes.root}
@@ -118,7 +120,7 @@ export function Clip({ url, tracksId, clipId }) {
         }}
       >
         <IconButton onClick={handlePlayPause} aria-label='play'>
-          {isPlaying ? (
+          {playing ? (
             <PauseIcon style={{ width: 16 }}></PauseIcon>
           ) : (
             <PlayIcon style={{ width: 16 }} />
@@ -183,8 +185,8 @@ export function Clip({ url, tracksId, clipId }) {
   )
 
   function handlePlayPause() {
-    //setPlay(!playing)
-    dispatch(toggleIsPlaying({ tracksId, clipId, isPlaying: !isPlaying }))
+    setPlay(!playing)
+    //dispatch(toggleIsPlaying({ tracksId, clipId, isPlaying: !isPlaying }))
     wavesurfer.current.playPause()
   }
 
