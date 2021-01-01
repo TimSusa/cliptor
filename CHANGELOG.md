@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.4](https://github.com/TimSusa/cliptor/compare/v0.0.2...v0.0.4) (2021-01-01)
+
+
+### Features
+
+* Add auto loop ([86c07a1](https://github.com/TimSusa/cliptor/commit/86c07a1f8e77fda327e7f757e8dca88f205c4ef7))
+* Beatify Matrix View ([d70f4fd](https://github.com/TimSusa/cliptor/commit/d70f4fdef202878640e210de87ec5e2ca5f5e6c3))
+* Convert to wavesurfer.js and establish more exciting ux ([025f05a](https://github.com/TimSusa/cliptor/commit/025f05ace6a73d79bc80f9b0f91725d85397dddf))
+* Introduce minimizing of waveforms ([6e49d32](https://github.com/TimSusa/cliptor/commit/6e49d32e201f04bf3f803fdf3e896a5775186399))
+* Introduce Playing of Scenes ([308b4fc](https://github.com/TimSusa/cliptor/commit/308b4fcfd9945159e9f34bb0c67dcf2da9af7e5b))
+* Screenshot ([dcac08e](https://github.com/TimSusa/cliptor/commit/dcac08e2abb122884a9321222849c43a2cfb5d4e))
+
 ### [0.0.2](https://github.com/TimSusa/cliptor/compare/v0.0.1...v0.0.2) (2020-12-31)
 
 
