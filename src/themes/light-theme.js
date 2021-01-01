@@ -28,7 +28,8 @@ export const lightTheme = {
         paddingLeft: 2,
         paddingRight: 2
       }
-    }
+    },
+    MuiIconButton: { root: { padding: 0 } }
   },
   palette: {
     secondary: {

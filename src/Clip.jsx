@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
-import Typography from '@material-ui/core/Typography'
+//import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
 import PlayIcon from '@material-ui/icons/PlayArrow'
 import NoLoopIcon from '@material-ui/icons/ArrowRightAlt'
@@ -10,6 +10,8 @@ import LoopIcon from '@material-ui/icons/Loop'
 import PauseIcon from '@material-ui/icons/Pause'
 import MinimizeIcon from '@material-ui/icons/Minimize'
 import MaximizeIcon from '@material-ui/icons/Maximize'
+import FastForwardIcon from '@material-ui/icons/FastForward'
+import FastRewindIcon from '@material-ui/icons/FastRewind'
 import WaveSurfer from 'wavesurfer.js'
 import Slider from '@material-ui/core/Slider'
 //import Regions from 'wavesurfer.js/dist/plugin/wavesurfer.regions.min.js'
@@ -107,9 +109,9 @@ export function Clip({ url, tracksId, clipId }) {
         e.preventDefault()
       }}
     >
-      <Typography style={{ whiteSpae: 'nowrap', overflow: 'hidden' }}>
+      <div style={{ whiteSpace: 'nowrap', overflow: 'hidden' }}>
         {url.substr(url.length - 35)}
-      </Typography>
+      </div>
 
       <div
         style={{
@@ -139,6 +141,24 @@ export function Clip({ url, tracksId, clipId }) {
           ) : (
             <NoLoopIcon style={{ width: 16 }} />
           )}
+        </IconButton>
+        <IconButton
+          aria-label='skip-backward'
+          onClick={() => {
+            wavesurfer.current.skip(-0.01)
+            wavesurfer.current.play()
+          }}
+        >
+          <FastRewindIcon style={{ width: 16 }}></FastRewindIcon>
+        </IconButton>
+        <IconButton
+          aria-label='skip-forward'
+          onClick={() => {
+            wavesurfer.current.skip(0.01)
+            wavesurfer.current.play()
+          }}
+        >
+          <FastForwardIcon style={{ width: 16 }}></FastForwardIcon>
         </IconButton>
         <IconButton
           aria-label='show waveform'
