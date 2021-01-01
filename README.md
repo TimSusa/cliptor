@@ -2,9 +2,9 @@
   <img width="250" src="./docs/cliptor-logo.svg">
 </p>
 
-# cliptor
+# Cliptor
 
-The app is supposed to just start a couple of samples via buttons. For example you could add, start and stop a sample "hooray" and a sample "applause". However, start the app, add your clips, drag and drop your files to the clips and you can start looping.
+This app is supposed to just start a couple of samples via buttons. For example you could add, start and stop a sample "hooray" and a sample "applause" or even start whole tracks. However, start the app, add your clips, drag and drop your files to the clips and you can start mixing and looping.
 
 Note: You better install the app on your OS to have all features available.
 
@@ -16,10 +16,11 @@ Note: You better install the app on your OS to have all features available.
 - Start, Stop and Pause your clips
 - Change volume for each clip
 - Start scenes, similar to ableton live
+- Load from or Save settings to a file
 
 ## Download and Install
 
-Go To https://github.com/TimSusa/cliptor/releases and find the latest or beta release. There is a caret with "assets". Please click the caret to have the download links available.
+Go to https://github.com/TimSusa/cliptor/releases and find the latest or beta release. There is a caret with "assets". Please click the caret to have the download links available.
 
 - Mac OSX: Please, download the \*.dmg File (can be seen on "assets" at the bottom here) and double click
 - Windows 7 and above: Please, download the \*.exe File (can be seen on "assets" at the bottom here) and double click
@@ -36,6 +37,8 @@ https://cliptor.timsusa.vercel.app/
 </p>
 
 ## Installation
+
+At first copy the .env.sample to .env, if you have none.
 
 ```
 yarn
@@ -58,6 +61,8 @@ yarn build
 ```
 
 # Electron App
+
+The app can be installed from packages for MacOSX, Rasperry Pi and Win. If you like to develop or build for yourself, please follow the instructions.
 
 ## Start Development
 

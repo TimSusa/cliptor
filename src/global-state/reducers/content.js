@@ -1,6 +1,9 @@
 import { v4 as uuidv4 } from 'uuid'
 
 export const content = {
+  setContent(state, { payload: { content } }) {
+    state.tracks = content.tracks
+  },
   addTrack(state) {
     const track = {
       id: `track-${uuidv4()}`,
@@ -25,7 +28,7 @@ export const content = {
         ...state.tracks[idx].data,
         {
           id: `clip-${uuidv4()}`,
-          src: './demo.mp3',
+          src: './bd.wav',
           volume: 0.66,
           isLooping: true,
           isWaveformShown: true,

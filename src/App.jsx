@@ -1,88 +1,39 @@
-import { Clip } from './Clip'
-import React, { useEffect } from 'react'
+import React, { useState } from 'react'
 import { useTheme } from '@material-ui/styles'
 import { makeStyles } from '@material-ui/styles'
-import { useSelector, useDispatch } from 'react-redux'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import IconButton from '@material-ui/core/IconButton'
-import AddTrackIcon from '@material-ui/icons/PlaylistAdd'
-import PlaySceneIcon from '@material-ui/icons/PlayCircleOutline'
-import AddClipIcon from '@material-ui/icons/Add'
+import { Matrix } from './Matrix'
+import MenuAppBar from './menu-app-bar/MenuAppBar'
+import Drawer from '@material-ui/core/Drawer'
+import DrawerList from './drawer-list/DrawerList'
 
-import { actionsContent } from './global-state'
-
-//const COLUMNS_WIDTH = 100
 export function App() {
-  const { addTrack, addClipToTrack, toggleIsScenePlaying } = actionsContent
   const theme = useTheme()
-  const dispatch = useDispatch()
   const classes = makeStyles(styles.bind(this, theme))()
-  const tracks = useSelector((state) => state.content.tracks || [])
-
-  useEffect(() => {
-    dispatch(addTrack())
-  }, [addTrack, dispatch])
+  const [isMobileOpen, setIsMobileOpen] = useState(false)
 
   return (
     <div className={classes.root}>
-      <List>
-        {tracks.length > 0 &&
-          tracks[0].data.map((clip, clipIdd) => {
-            return (
-              <ListItem
-                style={{
-                  height: 219
-                }}
-                key={`scene-${clipIdd}`}
-              >
-                <IconButton
-                  aria-label='play-scene'
-                  onClick={() => {
-                    dispatch(toggleIsScenePlaying({ sceneIdx: clipIdd }))
-                  }}
-                >
-                  <PlaySceneIcon></PlaySceneIcon>
-                </IconButton>
-              </ListItem>
-            )
-          })}
-        <ListItem>
-          <IconButton variant='contained' onClick={() => dispatch(addTrack())}>
-            <AddTrackIcon></AddTrackIcon>
-          </IconButton>
-        </ListItem>
-      </List>
-
-      {tracks.map((track) => {
-        return (
-          <List
-            key={track.id}
-            style={{
-              //display: 'inline-block',
-              // border: '1px solid grey',
-              // borderRadius: '5px',
-              width: `calc(100vw / ${tracks.length + 1}`,
-              minHeight: 'calc(100vh'
-              //marginRight: 8
-            }}
-          >
-            {(track.data || []).map(({ id, src }) => (
-              <ListItem key={id}>
-                <Clip url={src} tracksId={track.id} clipId={id} />
-              </ListItem>
-            ))}
-            <ListItem>
-              <IconButton
-                variant='contained'
-                onClick={() => dispatch(addClipToTrack({ id: track.id }))}
-              >
-                <AddClipIcon></AddClipIcon>
-              </IconButton>
-            </ListItem>
-          </List>
-        )
-      })}
+      <div className={classes.appBar}>
+        <MenuAppBar handleDrawerToggle={() => setIsMobileOpen(!isMobileOpen)} />
+        <Drawer
+          variant='temporary'
+          anchor={'left'}
+          open={isMobileOpen}
+          classes={{
+            paper: classes.drawerPaper
+          }}
+          onClose={() => setIsMobileOpen(!isMobileOpen)}
+        >
+          <DrawerList
+            onFileChange={() => setIsMobileOpen(false)}
+            handleSaveFile={() => setIsMobileOpen(false)}
+            handleResetSliders={() => setIsMobileOpen(false)}
+            classes={classes}
+            onClose={() => setIsMobileOpen(!isMobileOpen)}
+          />
+        </Drawer>
+        <Matrix />
+      </div>
     </div>
   )
 }
@@ -92,8 +43,7 @@ function styles(theme) {
     root: {
       width: '100%',
       height: '100%',
-      zIndex: 1,
-      display: 'flex'
+      zIndex: 1
     },
     appFrame: {
       position: 'relative',
