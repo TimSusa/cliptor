@@ -15,6 +15,7 @@ Note: You better install the app on your OS to have all features available.
 - Cliptor reads all common sound files like mp3, wav, ogg or flac
 - Start, Stop and Pause your clips
 - Change volume for each clip
+- Start scenes, similar to ableton live
 
 ## Download and Install
 
