@@ -22,6 +22,12 @@ export const lightTheme = {
       root: {
         padding: '4px 8px 4px 24px'
       }
+    },
+    MuiListItem: {
+      gutters: {
+        paddingLeft: 2,
+        paddingRight: 2
+      }
     }
   },
   palette: {

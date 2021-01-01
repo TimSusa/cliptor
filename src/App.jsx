@@ -7,13 +7,14 @@ import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import IconButton from '@material-ui/core/IconButton'
 import AddTrackIcon from '@material-ui/icons/PlaylistAdd'
+import PlaySceneIcon from '@material-ui/icons/PlayCircleOutline'
 import AddClipIcon from '@material-ui/icons/Add'
 
 import { actionsContent } from './global-state'
 
 //const COLUMNS_WIDTH = 100
 export function App() {
-  const { addTrack, addClipToTrack } = actionsContent
+  const { addTrack, addClipToTrack, toggleIsScenePlaying } = actionsContent
   const theme = useTheme()
   const dispatch = useDispatch()
   const classes = makeStyles(styles.bind(this, theme))()
@@ -26,23 +27,44 @@ export function App() {
   return (
     <div className={classes.root}>
       <List>
+        {tracks.length > 0 &&
+          tracks[0].data.map((clip, clipIdd) => {
+            return (
+              <ListItem
+                style={{
+                  height: 219
+                }}
+                key={`scene-${clipIdd}`}
+              >
+                <IconButton
+                  aria-label='play-scene'
+                  onClick={() => {
+                    dispatch(toggleIsScenePlaying({ sceneIdx: clipIdd }))
+                  }}
+                >
+                  <PlaySceneIcon></PlaySceneIcon>
+                </IconButton>
+              </ListItem>
+            )
+          })}
         <ListItem>
           <IconButton variant='contained' onClick={() => dispatch(addTrack())}>
             <AddTrackIcon></AddTrackIcon>
           </IconButton>
         </ListItem>
       </List>
+
       {tracks.map((track) => {
         return (
           <List
             key={track.id}
             style={{
-              display: 'inline-block',
-              border: '1px solid grey',
-              borderRadius: '5px',
+              //display: 'inline-block',
+              // border: '1px solid grey',
+              // borderRadius: '5px',
               width: `calc(100vw / ${tracks.length + 1}`,
-              minHeight: 'calc(100vh',
-              marginRight: 8
+              minHeight: 'calc(100vh'
+              //marginRight: 8
             }}
           >
             {(track.data || []).map(({ id, src }) => (

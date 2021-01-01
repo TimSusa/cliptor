@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
@@ -13,14 +13,17 @@ import MaximizeIcon from '@material-ui/icons/Maximize'
 import WaveSurfer from 'wavesurfer.js'
 import Slider from '@material-ui/core/Slider'
 //import Regions from 'wavesurfer.js/dist/plugin/wavesurfer.regions.min.js'
-import Cursor from 'wavesurfer.js/dist/plugin/wavesurfer.cursor.min.js'
+//import Cursor from 'wavesurfer.js/dist/plugin/wavesurfer.cursor.min.js'
 
 import { actionsContent } from './global-state'
 const useStyles = makeStyles(() => ({
   root: {
     display: 'flex',
     width: '100%',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    border: 'solid 1px grey',
+    borderRadius: '5px',
+    padding: 8
   }
 }))
 export function Clip({ url, tracksId, clipId }) {
@@ -29,22 +32,25 @@ export function Clip({ url, tracksId, clipId }) {
   const {
     changeClipSrc,
     changeClipVolume,
+    toggleIsPlaying,
     toggleIsLooping,
     toggleIsWaveformShown
   } = actionsContent
   const tracks = useSelector((state) => state.content.tracks)
   const tracksIdx = tracks.findIndex((item) => item.id === tracksId)
   const clipIdx = tracks[tracksIdx].data.findIndex((item) => item.id === clipId)
-  const { isLooping, isWaveformShown, volume } = tracks[tracksIdx].data[clipIdx]
+  const { isPlaying, isLooping, isWaveformShown, volume } = tracks[
+    tracksIdx
+  ].data[clipIdx]
   const waveformRef = useRef(null)
   const wavesurfer = useRef(null)
-  const [playing, setPlay] = useState(false)
-  //const [volume, setVolume] = useState(volTmp)
+  //const [playing, setPlay] = useState(false)
 
   // create new WaveSurfer instance
   // On component mount and when url changes
   useEffect(() => {
-    setPlay(false)
+    //setPlay(false)
+    //dispatch(toggleIsPlaying({ tracksId, clipId, isPlaying: false }))
 
     const options = formWaveSurferOptions(waveformRef.current)
     wavesurfer.current = WaveSurfer.create(options)
@@ -55,12 +61,15 @@ export function Clip({ url, tracksId, clipId }) {
       // https://wavesurfer-js.org/docs/methods.html
       // wavesurfer.current.play();
       // setPlay(true);
+      if (isPlaying) {
+        dispatch(toggleIsPlaying({ tracksId, clipId, isPlaying: true }))
+        wavesurfer.current.play()
+      }
 
       // make sure object stillavailable when file loaded
-      if (wavesurfer.current) {
-        wavesurfer.current.setVolume(volume)
-        //setVolume(volume)
-      }
+      // if (wavesurfer.current) {
+      //   wavesurfer.current.setVolume(volume)
+      // }
     })
     wavesurfer.current.on('finish', () => {
       if (isLooping) {
@@ -71,7 +80,7 @@ export function Clip({ url, tracksId, clipId }) {
     // Removes events, elements and disconnects Web Audio nodes.
     // when component unmount
     return () => wavesurfer.current.destroy()
-  }, [url, isLooping])
+  }, [url, isLooping, isPlaying])
 
   return (
     <div
@@ -109,7 +118,7 @@ export function Clip({ url, tracksId, clipId }) {
         }}
       >
         <IconButton onClick={handlePlayPause} aria-label='play'>
-          {playing ? (
+          {isPlaying ? (
             <PauseIcon style={{ width: 16 }}></PauseIcon>
           ) : (
             <PlayIcon style={{ width: 16 }} />
@@ -174,7 +183,8 @@ export function Clip({ url, tracksId, clipId }) {
   )
 
   function handlePlayPause() {
-    setPlay(!playing)
+    //setPlay(!playing)
+    dispatch(toggleIsPlaying({ tracksId, clipId, isPlaying: !isPlaying }))
     wavesurfer.current.playPause()
   }
 
@@ -211,19 +221,18 @@ function formWaveSurferOptions(ref) {
     partialRender: true,
     //backend: 'MediaElement',
     plugins: [
-      Cursor.create({
-        showTime: true,
-        opacity: 1,
-        customShowTimeStyle: {
-          'background-color': '#000',
-          color: '#fff',
-          padding: '2px',
-          'font-size': '10px'
-        }
-      })
+      // Cursor.create({
+      //   showTime: true,
+      //   opacity: 1,
+      //   customShowTimeStyle: {
+      //     'background-color': '#000',
+      //     color: '#fff',
+      //     padding: '2px',
+      //     'font-size': '10px'
+      //   }
+      // })
       // Regions.create({
       //   regionsMinLength: 1,
-
       // loop: true,
       //   // regions: [
       //   //   {
