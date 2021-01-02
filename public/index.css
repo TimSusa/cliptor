@@ -30,7 +30,7 @@ height: 100% !important;
 
 html {
   /* touch-action: manipulation;  */
-  touch-action: none;
+  /* touch-action: none; */
   pointer-events: auto;
 }
 html,
