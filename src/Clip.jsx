@@ -47,6 +47,7 @@ export function Clip({ url, tracksId, clipId }) {
   const waveformRef = useRef(null)
   const wavesurfer = useRef(null)
   const [playing, setPlay] = useState(isPlaying)
+  const [isLoading, setIsLoading] = useState(true)
 
   // create new WaveSurfer instance
   // On component mount and when url changes
@@ -60,13 +61,11 @@ export function Clip({ url, tracksId, clipId }) {
     wavesurfer.current.load(url)
 
     wavesurfer.current.on('ready', function () {
-      // https://wavesurfer-js.org/docs/methods.html
-      // wavesurfer.current.play();
-      // setPlay(true);
       // make sure object stillavailable when file loaded
-      // if (wavesurfer.current) {
-      //   wavesurfer.current.setVolume(volume)
-      // }
+      if (wavesurfer.current) {
+        //wavesurfer.current.setVolume(volume)
+        setIsLoading(false)
+      }
     })
     wavesurfer.current.on('finish', () => {
       if (isLooping) {
@@ -86,6 +85,7 @@ export function Clip({ url, tracksId, clipId }) {
       wavesurfer.current.stop()
     }
   }, [isPlaying])
+
   return (
     <div
       className={classes.root}
@@ -183,7 +183,7 @@ export function Clip({ url, tracksId, clipId }) {
       <div
         style={{
           width: '100%',
-          display: isWaveformShown ? 'unset' : 'none'
+          display: isWaveformShown || !isLoading ? 'unset' : 'none'
         }}
         id='waveform'
         ref={waveformRef}
