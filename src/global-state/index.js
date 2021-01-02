@@ -1,22 +1,7 @@
 import { combineReducers } from 'redux'
 import { createSlice } from '@reduxjs/toolkit'
 import { viewSettings } from './reducers/view-settings'
-import { track } from './reducers/track'
 import { content } from './reducers/content'
-
-//
-// track
-//
-//
-const { reducer: reducerTrack, actions: actionsTracksOne } = createSlice({
-  name: 'track',
-  initialState: {
-    track: []
-  },
-  reducers: track
-})
-
-export const actionsTrack = actionsTracksOne
 
 //
 // content
@@ -25,7 +10,8 @@ export const actionsTrack = actionsTracksOne
 const { reducer: reducerContent, actions: actionsContents } = createSlice({
   name: 'content',
   initialState: {
-    tracks: []
+    tracks: [],
+    sceneIdx: null
   },
   reducers: content
 })
@@ -35,20 +21,15 @@ export const actionsContent = actionsContents
 // ViewSettings
 //
 export const PAGE_TYPES = {
-  HOME_MODE: 'HOME_MODE',
-  GLOBAL_MODE: 'GLOBAL_MODE',
-  MIDI_DRIVER_MODE: 'MIDI_DRIVER_MODE'
+  HOME_MODE: 'HOME_MODE'
   // VIEW_SETTINGS_MODE: 'VIEW_SETTINGS_MODE'
 }
 
 export const viewSettingsInitState = {
+  bpm: 95,
+  windowFrameInSteps: 4,
+  currentSceneIdx: null,
   columns: 18,
-  rowHeight: 40,
-  isAutoSize: false,
-  marginX: 8,
-  marginY: 8,
-  paddingX: 8,
-  paddingY: 8,
   availableDrivers: {
     inputs: {
       None: {
@@ -86,7 +67,6 @@ export const actionsViewSettings = actionsViewSettingss
 export const reducerViewSettings = reducerViewSettingss
 
 export const reducer = combineReducers({
-  track: reducerTrack,
   content: reducerContent,
   viewSettings: reducerViewSettings
 })

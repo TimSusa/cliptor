@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import { useTheme } from '@material-ui/styles'
 import { makeStyles } from '@material-ui/styles'
 import { Matrix } from './Matrix'
@@ -6,11 +7,16 @@ import MenuAppBar from './menu-app-bar/MenuAppBar'
 import Drawer from '@material-ui/core/Drawer'
 import DrawerList from './drawer-list/DrawerList'
 
+import { initClock } from './global-state/thunks/clock'
+
 export function App() {
+  const dispatch = useDispatch()
   const theme = useTheme()
   const classes = makeStyles(styles.bind(this, theme))()
   const [isMobileOpen, setIsMobileOpen] = useState(false)
-
+  useEffect(() => {
+    dispatch(initClock())
+  }, [])
   return (
     <div className={classes.root}>
       <div className={classes.appBar}>

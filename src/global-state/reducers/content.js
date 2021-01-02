@@ -76,9 +76,12 @@ export const content = {
     state.tracks[tracksIdx].data[clipIdx].isWaveformShown = isWaveformShown
   },
   toggleIsScenePlaying(state, { payload: { sceneIdx } }) {
-    state.tracks.forEach(({ data }, idx) => {
-      if (state.tracks[idx].data[sceneIdx]) {
-        state.tracks[idx].data[sceneIdx].isPlaying = !data[sceneIdx].isPlaying
+    state.tracks.forEach((track, idx) => {
+      state.tracks[idx].data.forEach((clip, idxx) => {
+        state.tracks[idx].data[idxx].isPlaying = false
+      })
+      if (track.data[sceneIdx]) {
+        state.tracks[idx].data[sceneIdx].isPlaying = true
       }
     })
   }

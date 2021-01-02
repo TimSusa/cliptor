@@ -10,15 +10,11 @@ import AddTrackIcon from '@material-ui/icons/PlaylistAdd'
 import PlaySceneIcon from '@material-ui/icons/PlayCircleOutline'
 import AddClipIcon from '@material-ui/icons/Add'
 import { content } from './utils/example'
-import { actionsContent } from './global-state'
+import { actionsContent, actionsViewSettings } from './global-state'
 
 export function Matrix() {
-  const {
-    setContent,
-    addTrack,
-    addClipToTrack,
-    toggleIsScenePlaying
-  } = actionsContent
+  const { setContent, addTrack, addClipToTrack } = actionsContent
+  const { changeCurrentScene } = actionsViewSettings
   const theme = useTheme()
   const dispatch = useDispatch()
   const classes = makeStyles(styles.bind(this, theme))()
@@ -43,7 +39,7 @@ export function Matrix() {
                 <IconButton
                   aria-label='play-scene'
                   onClick={() => {
-                    dispatch(toggleIsScenePlaying({ sceneIdx: clipIdd }))
+                    dispatch(changeCurrentScene({ currentSceneIdx: clipIdd }))
                   }}
                 >
                   <PlaySceneIcon></PlaySceneIcon>
