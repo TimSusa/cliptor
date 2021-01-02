@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.9](https://github.com/TimSusa/cliptor/compare/v0.0.6...v0.0.9) (2021-01-02)
+
+
+### Features
+
+* Add second line to demo and adapt over sync ([66cc182](https://github.com/TimSusa/cliptor/commit/66cc18259103c5d986b200effa262e570cd32b55))
+* Have Scene playback synced to each other ([02297ae](https://github.com/TimSusa/cliptor/commit/02297aee5d1473be32d68ade9a5dc54ec32d58fe))
+* Hide waveform until ready ([1b82a3c](https://github.com/TimSusa/cliptor/commit/1b82a3cc1950ff4dbd20e086bc7512bf111c93a7))
+* Renew Logo ([6db4c91](https://github.com/TimSusa/cliptor/commit/6db4c913e555180148136b98cdce5a7875a6279b))
+* Save space due to converting to m4a ([88b48b2](https://github.com/TimSusa/cliptor/commit/88b48b2b3b6227b4c2caf41b72a68277598e3e6b))
+
+
+### Bug Fixes
+
+* cancel ongoing ajax ([34933fc](https://github.com/TimSusa/cliptor/commit/34933fc2004ba5e8dcadaa4645e2a391705e8121))
+* fix ([c759111](https://github.com/TimSusa/cliptor/commit/c7591119897fb1a39e85e6563ce278f2201ecf95))
+
 ### [0.0.6](https://github.com/TimSusa/cliptor/compare/v0.0.5...v0.0.6) (2021-01-01)
 
 
