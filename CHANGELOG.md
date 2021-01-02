@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.10](https://github.com/TimSusa/cliptor/compare/v0.0.9...v0.0.10) (2021-01-02)
+
+
+### Features
+
+* Have different audio output driver for every clip available ([b855173](https://github.com/TimSusa/cliptor/commit/b85517359fae4ced8342237fd88d90c3d4ac50af))
+* introduce loading ([1e16462](https://github.com/TimSusa/cliptor/commit/1e164628745f4ea3b3eb3010423e2efdbf03c869))
+* show loading on iphone ([8a47c92](https://github.com/TimSusa/cliptor/commit/8a47c9215a19aa8442cb8f14c3b500595e6c70e4))
+* Try to fix touch scroll ([2edc2bd](https://github.com/TimSusa/cliptor/commit/2edc2bda2717906140a7858432921f5c880e2bef))
+* use webaudio backend ([377afec](https://github.com/TimSusa/cliptor/commit/377afec735821e27cc4860b7ed6c9b1bc35628bb))
+
 ### [0.0.9](https://github.com/TimSusa/cliptor/compare/v0.0.6...v0.0.9) (2021-01-02)
 
 
