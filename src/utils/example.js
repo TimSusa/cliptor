@@ -1,7 +1,4 @@
 export const content = {
-  track: {
-    track: []
-  },
   content: {
     tracks: [
       {
@@ -9,6 +6,14 @@ export const content = {
         data: [
           {
             id: 'clip-90b5add2-9184-4527-8004-f9dc5511d7c8',
+            src: 'beat-95bpm.m4a',
+            volume: 0.66,
+            isLooping: true,
+            isWaveformShown: true,
+            isPlaying: false
+          },
+          {
+            id: 'clip-8f524c15-fb16-4c0b-8a8b-cb7e1c03cb5a',
             src: 'beat-95bpm.m4a',
             volume: 0.66,
             isLooping: true,
@@ -27,6 +32,14 @@ export const content = {
             isLooping: true,
             isWaveformShown: true,
             isPlaying: false
+          },
+          {
+            id: 'clip-0a2d301f-3a58-4de9-8aa3-50bddeca6983',
+            src: 'piano.m4a',
+            volume: 0.66,
+            isLooping: true,
+            isWaveformShown: true,
+            isPlaying: false
           }
         ]
       },
@@ -35,6 +48,14 @@ export const content = {
         data: [
           {
             id: 'clip-daa3d9f8-c483-41cb-a2f2-15ad747d8090',
+            src: 'tim-95bpm Keys 1.m4a',
+            volume: 0.66,
+            isLooping: true,
+            isWaveformShown: true,
+            isPlaying: false
+          },
+          {
+            id: 'clip-3e83efc8-1672-4a3c-85a3-9ef9aae520a6',
             src: 'tim-95bpm Keys 1.m4a',
             volume: 0.66,
             isLooping: true,
@@ -53,6 +74,14 @@ export const content = {
             isLooping: true,
             isWaveformShown: true,
             isPlaying: false
+          },
+          {
+            id: 'clip-7fdf6491-177f-425a-ad52-171bd2c71097',
+            src: 'tim-95bpm Keys 2.m4a',
+            volume: 0.66,
+            isLooping: true,
+            isWaveformShown: true,
+            isPlaying: false
           }
         ]
       },
@@ -66,19 +95,25 @@ export const content = {
             isLooping: true,
             isWaveformShown: true,
             isPlaying: false
+          },
+          {
+            id: 'clip-ccb0fe5d-ae60-4cef-a63a-3e095eb9063a',
+            src: 'tim-95bpm Piano 1.m4a',
+            volume: 0.66,
+            isLooping: true,
+            isWaveformShown: true,
+            isPlaying: false
           }
         ]
       }
-    ]
+    ],
+    sceneIdx: null
   },
   viewSettings: {
+    bpm: 95,
+    windowFrameInSteps: 4,
+    currentSceneIdx: null,
     columns: 18,
-    rowHeight: 40,
-    isAutoSize: false,
-    marginX: 8,
-    marginY: 8,
-    paddingX: 8,
-    paddingY: 8,
     availableDrivers: {
       inputs: {
         None: {

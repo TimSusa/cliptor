@@ -27,7 +27,7 @@ export const PAGE_TYPES = {
 
 export const viewSettingsInitState = {
   bpm: 95,
-  windowFrameInSteps: 4,
+  windowFrameInSteps: 8,
   currentSceneIdx: null,
   columns: 18,
   availableDrivers: {
