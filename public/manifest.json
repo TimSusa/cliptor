@@ -1,6 +1,6 @@
 {
-  "short_name": "MIDI Sliders",
-  "name": "Simple configurable Sliders and Buttons which send MIDI Data",
+  "short_name": "Cliptor",
+  "name": "Cliptor",
   "icons": [
     {
       "sizes": "20x20",
