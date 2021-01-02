@@ -10,10 +10,10 @@ export const content = {
       data: [
         {
           id: `clip-${uuidv4()}`,
-          src: './bd.wav',
+          src: './bd.m4a',
           volume: 0.66,
           isLooping: true,
-          isWaveformShown: true,
+          ism4aeformShown: true,
           isPlaying: false
         }
       ]
@@ -28,7 +28,7 @@ export const content = {
         ...state.tracks[idx].data,
         {
           id: `clip-${uuidv4()}`,
-          src: './bd.wav',
+          src: './bd.m4a',
           volume: 0.66,
           isLooping: true,
           isWaveformShown: true,

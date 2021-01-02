@@ -9,7 +9,7 @@ export const content = {
         data: [
           {
             id: 'clip-90b5add2-9184-4527-8004-f9dc5511d7c8',
-            src: 'beat-95bpm.flac',
+            src: 'beat-95bpm.m4a',
             volume: 0.66,
             isLooping: true,
             isWaveformShown: true,
@@ -22,7 +22,7 @@ export const content = {
         data: [
           {
             id: 'clip-a827d61e-fd8d-4ad9-a902-f5e36cb56a59',
-            src: 'piano.flac',
+            src: 'piano.m4a',
             volume: 0.66,
             isLooping: true,
             isWaveformShown: true,
@@ -35,7 +35,7 @@ export const content = {
         data: [
           {
             id: 'clip-daa3d9f8-c483-41cb-a2f2-15ad747d8090',
-            src: 'tim-95bpm Keys 1.flac',
+            src: 'tim-95bpm Keys 1.m4a',
             volume: 0.66,
             isLooping: true,
             isWaveformShown: true,
@@ -48,7 +48,7 @@ export const content = {
         data: [
           {
             id: 'clip-e090cb4c-73ab-4a7d-b4b4-9ad444399441',
-            src: 'tim-95bpm Keys 2.flac',
+            src: 'tim-95bpm Keys 2.m4a',
             volume: 0.66,
             isLooping: true,
             isWaveformShown: true,
@@ -61,7 +61,7 @@ export const content = {
         data: [
           {
             id: 'clip-d02d57e7-743d-48f3-8cef-a09de375f510',
-            src: 'tim-95bpm Piano 1.flac',
+            src: 'tim-95bpm Piano 1.m4a',
             volume: 0.66,
             isLooping: true,
             isWaveformShown: true,
