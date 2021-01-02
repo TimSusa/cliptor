@@ -57,7 +57,7 @@ export function Clip({ url, tracksId, clipId }) {
 
     const options = formWaveSurferOptions(waveformRef.current)
     wavesurfer.current = WaveSurfer.create(options)
-
+    wavesurfer.current.cancelAjax()
     wavesurfer.current.load(url)
 
     wavesurfer.current.on('ready', function () {
