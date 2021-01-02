@@ -14,7 +14,8 @@ export const content = {
           volume: 0.66,
           isLooping: true,
           ism4aeformShown: true,
-          isPlaying: false
+          isPlaying: false,
+          audioDriverOutName: null
         }
       ]
     }
@@ -32,7 +33,8 @@ export const content = {
           volume: 0.66,
           isLooping: true,
           isWaveformShown: true,
-          isPlaying: false
+          isPlaying: false,
+          audioDriverOutName: null
         }
       ]
     }
@@ -64,6 +66,18 @@ export const content = {
       (item) => item.id === clipId
     )
     state.tracks[tracksIdx].data[clipIdx].isLooping = isLooping
+  },
+  setAudioDriverOutName(
+    state,
+    { payload: { tracksId, clipId, audioDriverOutName } }
+  ) {
+    const tracksIdx = state.tracks.findIndex((item) => item.id === tracksId)
+    const clipIdx = state.tracks[tracksIdx].data.findIndex(
+      (item) => item.id === clipId
+    )
+    state.tracks[tracksIdx].data[
+      clipIdx
+    ].audioDriverOutName = audioDriverOutName
   },
   toggleIsWaveformShown(
     state,

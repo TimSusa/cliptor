@@ -30,6 +30,7 @@ export const viewSettingsInitState = {
   windowFrameInSteps: 8,
   currentSceneIdx: null,
   columns: 18,
+  audioDriverOuts: [],
   availableDrivers: {
     inputs: {
       None: {

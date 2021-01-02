@@ -18,6 +18,9 @@ import Slider from '@material-ui/core/Slider'
 //import Cursor from 'wavesurfer.js/dist/plugin/wavesurfer.cursor.min.js'
 
 import { actionsContent } from './global-state'
+
+import { AudioDriverOutMenu } from './AudioDriverOutMenu'
+
 const useStyles = makeStyles(() => ({
   root: {
     display: 'flex',
@@ -38,12 +41,19 @@ export function Clip({ url, tracksId, clipId }) {
     toggleIsLooping,
     toggleIsWaveformShown
   } = actionsContent
+  const audioDriverOuts = useSelector(
+    (state) => state.viewSettings.audioDriverOuts
+  )
   const tracks = useSelector((state) => state.content.tracks)
   const tracksIdx = tracks.findIndex((item) => item.id === tracksId)
   const clipIdx = tracks[tracksIdx].data.findIndex((item) => item.id === clipId)
-  const { isPlaying, isLooping, isWaveformShown, volume } = tracks[
-    tracksIdx
-  ].data[clipIdx]
+  const {
+    isPlaying,
+    isLooping,
+    isWaveformShown,
+    volume,
+    audioDriverOutName
+  } = tracks[tracksIdx].data[clipIdx]
   const waveformRef = useRef(null)
   const wavesurfer = useRef(null)
   const [playing, setPlay] = useState(isPlaying)
@@ -59,8 +69,15 @@ export function Clip({ url, tracksId, clipId }) {
     wavesurfer.current = WaveSurfer.create(options)
     //wavesurfer.current.cancelAjax()
     wavesurfer.current.load(url)
+
+    if (audioDriverOutName) {
+      const sinkId = audioDriverOuts.find(
+        (driver) => driver.label === audioDriverOutName
+      ).deviceId
+      wavesurfer.current.setSinkId(sinkId)
+    }
+
     wavesurfer.current.on('loading', (progress) => {
-      console.log('loading url ', url, ' with progress: ', progress)
       if (progress === 100) {
         setIsLoading(false)
       }
@@ -80,14 +97,14 @@ export function Clip({ url, tracksId, clipId }) {
     // Removes events, elements and disconnects Web Audio nodes.
     // when component unmount
     return () => wavesurfer.current.destroy()
-  }, [url])
+  }, [url, audioDriverOutName])
   useEffect(() => {
     if (isPlaying) {
       dispatch(toggleIsPlaying({ tracksId, clipId, isPlaying: true }))
-      wavesurfer.current.play(0.01)
+      wavesurfer.current.play(0.001)
     } else {
       dispatch(toggleIsPlaying({ tracksId, clipId, isPlaying: false }))
-      wavesurfer.current.stop()
+      wavesurfer.current.stop(0.001)
     }
   }, [isPlaying])
 
@@ -206,6 +223,15 @@ export function Clip({ url, tracksId, clipId }) {
           aria-labelledby='range-slider'
         />
       </div>
+      {audioDriverOuts.length > 0 && (
+        <div style={{ width: '100%' }}>
+          <AudioDriverOutMenu
+            driverName={audioDriverOutName}
+            tracksId={tracksId}
+            clipId={clipId}
+          ></AudioDriverOutMenu>
+        </div>
+      )}
     </div>
   )
 
@@ -246,7 +272,7 @@ function formWaveSurferOptions(ref) {
     normalize: true,
     // Use the PeakCache to improve rendering speed of large waveforms.
     partialRender: true,
-    backend: 'WebAudio',
+    //backend: 'WebAudio',
     plugins: [
       // Cursor.create({
       //   showTime: true,

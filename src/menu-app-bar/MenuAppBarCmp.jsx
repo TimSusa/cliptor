@@ -1,20 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { makeStyles, useTheme } from '@material-ui/styles'
-
+import { useDispatch, useSelector } from 'react-redux'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
+import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
-
+import { actionsViewSettings } from '../global-state'
 export const MenuAppBar = MenuAppBarCmp
 
+const { setBpm } = actionsViewSettings
 function MenuAppBarCmp(props) {
   const theme = useTheme()
-
+  const dispatch = useDispatch()
   const classes = makeStyles(styles.bind(this, theme))()
-
+  const { bpm } = useSelector((state) => state.viewSettings)
   return (
     <div className={classes.root}>
       <AppBar className={classes.appBar} position='fixed'>
@@ -31,6 +33,22 @@ function MenuAppBarCmp(props) {
           <Typography variant='h6' className={classes.typoColorStyle}>
             Cliptor
           </Typography>
+          <TextField
+            label='BPM'
+            type='number'
+            inputProps={{
+              min: 1,
+              max: 200
+            }}
+            InputLabelProps={{
+              shrink: true
+            }}
+            variant='standard'
+            defaultValue={bpm}
+            onChange={(e) => {
+              dispatch(setBpm({ bpm: e.target.event }))
+            }}
+          />
         </Toolbar>
       </AppBar>
       <div

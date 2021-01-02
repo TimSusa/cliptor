@@ -11,5 +11,8 @@ export const viewSettings = {
       isChangedTheme: !castedVal,
       isMidiLearnMode: false
     })
+  },
+  setAudioDriverOuts(state, { payload: { audioDriverOuts } }) {
+    state.audioDriverOuts = audioDriverOuts
   }
 }

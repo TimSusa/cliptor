@@ -10,6 +10,7 @@ import AddTrackIcon from '@material-ui/icons/PlaylistAdd'
 import PlaySceneIcon from '@material-ui/icons/PlayCircleOutline'
 import AddClipIcon from '@material-ui/icons/Add'
 import { content } from './utils/example'
+import { initDrivers } from './global-state/thunks/drivers'
 import { actionsContent, actionsViewSettings } from './global-state'
 
 export function Matrix() {
@@ -19,7 +20,9 @@ export function Matrix() {
   const dispatch = useDispatch()
   const classes = makeStyles(styles.bind(this, theme))()
   const tracks = useSelector((state) => state.content.tracks || [])
-
+  useEffect(() => {
+    dispatch(initDrivers())
+  }, [])
   useEffect(() => {
     dispatch(setContent({ content: content.content }))
   }, [setContent, dispatch])
@@ -59,12 +62,8 @@ export function Matrix() {
           <List
             key={track.id}
             style={{
-              //display: 'inline-block',
-              // border: '1px solid grey',
-              // borderRadius: '5px',
               width: `calc(100vw / ${tracks.length + 1}`,
               minHeight: 'calc(100vh'
-              //marginRight: 8
             }}
           >
             {(track.data || []).map(({ id, src }) => (
