@@ -184,11 +184,11 @@ export function Clip({ url, tracksId, clipId }) {
           )}
         </IconButton>
       </div>
-
+      <div>{isLoading ? 'IS LOADING...' : ''}</div>
       <div
         style={{
           width: '100%',
-          display: isWaveformShown || !isLoading ? 'unset' : 'none'
+          display: isWaveformShown ? 'unset' : 'none'
         }}
         id='waveform'
         ref={waveformRef}
