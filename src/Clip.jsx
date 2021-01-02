@@ -84,7 +84,7 @@ export function Clip({ url, tracksId, clipId }) {
   useEffect(() => {
     if (isPlaying) {
       dispatch(toggleIsPlaying({ tracksId, clipId, isPlaying: true }))
-      wavesurfer.current.play()
+      wavesurfer.current.play(0.01)
     } else {
       dispatch(toggleIsPlaying({ tracksId, clipId, isPlaying: false }))
       wavesurfer.current.stop()
@@ -246,7 +246,7 @@ function formWaveSurferOptions(ref) {
     normalize: true,
     // Use the PeakCache to improve rendering speed of large waveforms.
     partialRender: true,
-    //backend: 'MediaElement',
+    backend: 'WebAudio',
     plugins: [
       // Cursor.create({
       //   showTime: true,
