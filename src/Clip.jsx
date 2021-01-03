@@ -262,9 +262,9 @@ Clip.propTypes = {
 }
 
 function formWaveSurferOptions(ref) {
-  const audioContext = new AudioContext()
+  //const audioContext = new AudioContext()
   return {
-    audioContext,
+    // audioContext,
     container: ref,
     // splitChannels: true,
     //waveColor: '#eee',
