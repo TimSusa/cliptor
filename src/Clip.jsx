@@ -70,13 +70,6 @@ export function Clip({ url, tracksId, clipId }) {
     //wavesurfer.current.cancelAjax()
     wavesurfer.current.load(url)
 
-    if (audioDriverOutName) {
-      const sinkId = audioDriverOuts.find(
-        (driver) => driver.label === audioDriverOutName
-      ).deviceId
-      wavesurfer.current.setSinkId(sinkId)
-    }
-
     wavesurfer.current.on('loading', (progress) => {
       if (progress === 100) {
         setIsLoading(false)
@@ -97,7 +90,16 @@ export function Clip({ url, tracksId, clipId }) {
     // Removes events, elements and disconnects Web Audio nodes.
     // when component unmount
     return () => wavesurfer.current.destroy()
-  }, [url, audioDriverOutName])
+  }, [url])
+
+  useEffect(() => {
+    if (audioDriverOutName) {
+      const sinkId = audioDriverOuts.find(
+        (driver) => driver.label === audioDriverOutName
+      ).deviceId
+      wavesurfer.current.setSinkId(sinkId)
+    }
+  }, [audioDriverOutName])
   useEffect(() => {
     if (isPlaying) {
       dispatch(toggleIsPlaying({ tracksId, clipId, isPlaying: true }))
