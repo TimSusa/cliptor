@@ -21,7 +21,7 @@ export function initDrivers() {
 async function scanForAudioDrivers() {
   let list = []
   return new Promise((resolve, reject) => {
-    navigator.webkitGetUserMedia(
+    navigator.getUserMedia(
       { audio: true },
       async function () {
         list = await refreshDeviceList(list)

@@ -100,6 +100,7 @@ export function Clip({ url, tracksId, clipId }) {
       wavesurfer.current.setSinkId(sinkId)
     }
   }, [audioDriverOutName])
+
   useEffect(() => {
     if (isPlaying) {
       dispatch(toggleIsPlaying({ tracksId, clipId, isPlaying: true }))
@@ -261,8 +262,11 @@ Clip.propTypes = {
 }
 
 function formWaveSurferOptions(ref) {
+  const audioContext = new AudioContext()
   return {
+    audioContext,
     container: ref,
+    // splitChannels: true,
     //waveColor: '#eee',
     // progressColor: 'OrangeRed',
     // cursorColor: 'OrangeRed',
