@@ -8,13 +8,19 @@ import ListItem from '@material-ui/core/ListItem'
 import IconButton from '@material-ui/core/IconButton'
 import AddTrackIcon from '@material-ui/icons/PlaylistAdd'
 import PlaySceneIcon from '@material-ui/icons/PlayCircleOutline'
+import StopSceneIcon from '@material-ui/icons/Stop'
 import AddClipIcon from '@material-ui/icons/Add'
 import { content } from './utils/example'
 import { initDrivers } from './global-state/thunks/drivers'
 import { actionsContent, actionsViewSettings } from './global-state'
 
 export function Matrix() {
-  const { setContent, addTrack, addClipToTrack } = actionsContent
+  const {
+    setContent,
+    addTrack,
+    addClipToTrack,
+    stopIsScenePlaying
+  } = actionsContent
   const { changeCurrentScene } = actionsViewSettings
   const theme = useTheme()
   const dispatch = useDispatch()
@@ -39,14 +45,25 @@ export function Matrix() {
                 }}
                 key={`scene-${clipIdd}`}
               >
-                <IconButton
-                  aria-label='play-scene'
-                  onClick={() => {
-                    dispatch(changeCurrentScene({ currentSceneIdx: clipIdd }))
-                  }}
-                >
-                  <PlaySceneIcon></PlaySceneIcon>
-                </IconButton>
+                {tracks[0].data[clipIdd].isPlaying ? (
+                  <IconButton
+                    aria-label='stop-scene'
+                    onClick={() => {
+                      dispatch(stopIsScenePlaying({ sceneIdx: clipIdd }))
+                    }}
+                  >
+                    <StopSceneIcon></StopSceneIcon>
+                  </IconButton>
+                ) : (
+                  <IconButton
+                    aria-label='play-scene'
+                    onClick={() => {
+                      dispatch(changeCurrentScene({ currentSceneIdx: clipIdd }))
+                    }}
+                  >
+                    <PlaySceneIcon></PlaySceneIcon>
+                  </IconButton>
+                )}
               </ListItem>
             )
           })}
