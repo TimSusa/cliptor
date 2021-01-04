@@ -36,10 +36,9 @@ export function AudioDriverOutMenu(props) {
       })
     )
   }
-  const defaultDriver =
-    audioDriverOuts.find(
-      (driver) => driver.deviceId === 'default' || driver.deviceId === ''
-    ).label || 'default'
+  const defaultDriver = audioDriverOuts.find(
+    (driver) => driver.deviceId === 'default' || driver.deviceId === ''
+  ).label
   return (
     <FormControl className={classes.formControl}>
       <InputLabel id='audio-driver-out-label'>Audio Driver Out</InputLabel>
