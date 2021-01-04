@@ -45,7 +45,7 @@ export function Matrix() {
                 }}
                 key={`scene-${clipIdd}`}
               >
-                {tracks[0].data[clipIdd].isPlaying ? (
+                {tracks.every((track) => track.data[clipIdd].isPlaying) ? (
                   <IconButton
                     aria-label='stop-scene'
                     onClick={() => {
