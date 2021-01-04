@@ -1,7 +1,11 @@
 import { actionsContent, actionsViewSettings } from '../'
 
-const { toggleIsScenePlaying } = actionsContent
-const { changeCurrentScene } = actionsViewSettings
+const {
+  toggleIsScenePlaying,
+  // toggleIsPlaying,
+  toggleIsPlayingList
+} = actionsContent
+const { changeCurrentScene, clearRegisteredClips } = actionsViewSettings
 
 export function initClock() {
   let timer = null
@@ -17,11 +21,17 @@ export function initClock() {
 
     function tick() {
       const {
-        viewSettings: { currentSceneIdx }
+        viewSettings: { currentSceneIdx, registeredClips }
       } = getState()
       if (currentSceneIdx !== null) {
         dispatch(toggleIsScenePlaying({ sceneIdx: currentSceneIdx }))
         dispatch(changeCurrentScene({ currentSceneIdx: null }))
+      }
+      if (registeredClips.length > 0) {
+        //console.log('tick ')
+        dispatch(toggleIsPlayingList({ clips: registeredClips }))
+
+        dispatch(clearRegisteredClips())
       }
     }
   }

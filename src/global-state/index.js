@@ -29,6 +29,7 @@ export const viewSettingsInitState = {
   bpm: 95,
   windowFrameInSteps: 8,
   currentSceneIdx: null,
+  registeredClips: [],
   columns: 18,
   audioDriverOuts: [],
   availableDrivers: {

@@ -8,6 +8,14 @@ export const viewSettings = {
   changeCurrentScene(state, { payload: { currentSceneIdx } }) {
     state.currentSceneIdx = currentSceneIdx
   },
+  registerClip(state, { payload: { clip } }) {
+    if (state.registeredClips.every((item) => item.clipId !== clip.clipId)) {
+      state.registeredClips = [...state.registeredClips, clip]
+    }
+  },
+  clearRegisteredClips(state) {
+    state.registeredClips = []
+  },
   changeTheme(state) {
     const castedVal = !!state.isChangedTheme
     return Object.assign({}, state, {

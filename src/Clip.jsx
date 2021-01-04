@@ -17,7 +17,7 @@ import Slider from '@material-ui/core/Slider'
 //import Regions from 'wavesurfer.js/dist/plugin/wavesurfer.regions.min.js'
 //import Cursor from 'wavesurfer.js/dist/plugin/wavesurfer.cursor.min.js'
 
-import { actionsContent } from './global-state'
+import { actionsContent, actionsViewSettings } from './global-state'
 
 import { AudioDriverOutMenu } from './AudioDriverOutMenu'
 
@@ -34,10 +34,11 @@ const useStyles = makeStyles(() => ({
 export function Clip({ url, tracksId, clipId }) {
   const classes = useStyles()
   const dispatch = useDispatch()
+  const { registerClip } = actionsViewSettings
   const {
     changeClipSrc,
     changeClipVolume,
-    toggleIsPlaying,
+    // toggleIsPlaying,
     toggleIsLooping,
     toggleIsWaveformShown
   } = actionsContent
@@ -103,10 +104,11 @@ export function Clip({ url, tracksId, clipId }) {
 
   useEffect(() => {
     if (isPlaying) {
-      dispatch(toggleIsPlaying({ tracksId, clipId, isPlaying: true }))
+      //dispatch(toggleIsPlaying({ tracksId, clipId, isPlaying: false }))
+
       wavesurfer.current.play(0.001)
     } else {
-      dispatch(toggleIsPlaying({ tracksId, clipId, isPlaying: false }))
+      //dispatch(toggleIsPlaying({ tracksId, clipId, isPlaying: false }))
       wavesurfer.current.stop(0.001)
     }
   }, [isPlaying])
@@ -147,7 +149,7 @@ export function Clip({ url, tracksId, clipId }) {
         }}
       >
         <IconButton onClick={handlePlayPause} aria-label='play'>
-          {playing ? (
+          {isPlaying ? (
             <PauseIcon style={{ width: 16 }}></PauseIcon>
           ) : (
             <PlayIcon style={{ width: 16 }} />
@@ -241,7 +243,9 @@ export function Clip({ url, tracksId, clipId }) {
   function handlePlayPause() {
     setPlay(!playing)
     //dispatch(toggleIsPlaying({ tracksId, clipId, isPlaying: !isPlaying }))
-    wavesurfer.current.playPause()
+
+    dispatch(registerClip({ clip: { tracksId, clipId, isPlaying: true } }))
+    //wavesurfer.current.playPause()
   }
 
   function onVolumeChange(e, value) {
