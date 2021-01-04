@@ -13,7 +13,7 @@ Note: You better install the app on your OS to have all features available.
 - Easy extending your clip matrix: Add tracks or add clips to tracks
 - Drag and Drop your sample file easily to your clips for every track
 - Cliptor reads all common sound files like mp3, wav, ogg or flac
-- Start, Stop and Pause your clips
+- Start, Stop and Pause your clips synchronized to the given BPM
 - Have different Audio-Driver Output for every clip available
 - Change volume for each clip
 - Seek forward or backward during playback ( yes you can do kind of DJing with Cliptor)
