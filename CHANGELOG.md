@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.11](https://github.com/TimSusa/cliptor/compare/v0.0.10...v0.0.11) (2021-01-04)
+
+
+### Features
+
+* Change audiodriver on playback without issues ([afc8a48](https://github.com/TimSusa/cliptor/commit/afc8a48134229809bef124fbbc85fa286d260ad2))
+* Establish stop of scenes ([168963b](https://github.com/TimSusa/cliptor/commit/168963b8f6fa5045094fec9cd677e571bee1c868))
+* Set clip rate ([4fc6cbf](https://github.com/TimSusa/cliptor/commit/4fc6cbf4a2972d769fd1f101ee922f20a767bf10))
+* Sync clip playback, stop other clips ([3f5bfa6](https://github.com/TimSusa/cliptor/commit/3f5bfa67efd6ccc5b7366e3289e4df98e2978fb5))
+
+
+### Bug Fixes
+
+* default driver ([fa2a99f](https://github.com/TimSusa/cliptor/commit/fa2a99f323c0dfed54171a1fed9c412eda78fefd))
+* having only default driver ([97be2ca](https://github.com/TimSusa/cliptor/commit/97be2ca653f4fc02b7c49be75d4fe6ff8c2f8498))
+* label ([1810899](https://github.com/TimSusa/cliptor/commit/1810899bda8f9c4cd7c5588d37518fe29b638694))
+* not using self audiocontext ([f3adfec](https://github.com/TimSusa/cliptor/commit/f3adfec1f8dd3565c1ba89a826f120c74271abc0))
+* put try catch arround scanfordrivers ([afea0fc](https://github.com/TimSusa/cliptor/commit/afea0fc59faf772359d80dca6959781574da6401))
+* Stop scene ui behaviour ([a13b202](https://github.com/TimSusa/cliptor/commit/a13b202de6fe88099ac9af59972e02e253e31d36))
+* Try to fix on raspi audio out ([09cfe36](https://github.com/TimSusa/cliptor/commit/09cfe36daed13c581a42e5c8f157f4e55595b2bf))
+* Wording ([860ded7](https://github.com/TimSusa/cliptor/commit/860ded7ef4c967b3f29df161e627632e47e90f8a))
+
 ### [0.0.10](https://github.com/TimSusa/cliptor/compare/v0.0.9...v0.0.10) (2021-01-02)
 
 
