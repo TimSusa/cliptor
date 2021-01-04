@@ -22,7 +22,7 @@ async function scanForAudioDrivers() {
   let list = []
   return new Promise((resolve, reject) => {
     navigator.getUserMedia(
-      { audio: true },
+      { audio: true, video: false },
       async function () {
         list = await refreshDeviceList(list)
         resolve(list)
