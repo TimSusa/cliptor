@@ -16,7 +16,6 @@ import WaveSurfer from 'wavesurfer.js'
 import Slider from '@material-ui/core/Slider'
 //import Regions from 'wavesurfer.js/dist/plugin/wavesurfer.regions.min.js'
 //import Cursor from 'wavesurfer.js/dist/plugin/wavesurfer.cursor.min.js'
-
 import { actionsContent } from './global-state'
 
 import { AudioDriverOutMenu } from './AudioDriverOutMenu'
@@ -56,6 +55,8 @@ export function Clip({ url, tracksId, clipId }) {
   } = tracks[tracksIdx].data[clipIdx]
   const waveformRef = useRef(null)
   const wavesurfer = useRef(null)
+  const audioCtx = useRef(new AudioContext())
+  const source = useRef(audioCtx.current.createBufferSource())
   const [playing, setPlay] = useState(isPlaying)
   const [isLoading, setIsLoading] = useState(true)
 
@@ -64,12 +65,12 @@ export function Clip({ url, tracksId, clipId }) {
   useEffect(() => {
     //setPlay(false)
     //dispatch(toggleIsPlaying({ tracksId, clipId, isPlaying: false }))
-
+    //audioCtx.current = new AudioContext()
+    //Now that the request has been defined, actually make the request. (send it)
     const options = formWaveSurferOptions(waveformRef.current)
     wavesurfer.current = WaveSurfer.create(options)
     //wavesurfer.current.cancelAjax()
-    wavesurfer.current.load(url)
-
+    //wavesurfer.current.load(url)
     wavesurfer.current.on('loading', (progress) => {
       if (progress === 100) {
         setIsLoading(false)
@@ -84,9 +85,39 @@ export function Clip({ url, tracksId, clipId }) {
     })
     wavesurfer.current.on('finish', () => {
       if (isLooping) {
-        wavesurfer.current.playPause()
+        // wavesurfer.current.playPause()
+        //buffer.current.start()
       }
     })
+
+    cbd()
+
+    async function getBufferByUrl(url) {
+      //...and the source
+      //var source = audioCtx.current.createBufferSource()
+      //connect it to the destination so you can hear it.
+      source.current.connect(audioCtx.current.destination)
+      const resp = await fetch(url)
+      const arrayBuffer = await resp.arrayBuffer()
+      const audioBuffer = await audioCtx.current.decodeAudioData(arrayBuffer)
+      source.current.buffer = audioBuffer
+      source.current.loop = isLooping
+      var merger = audioCtx.current.createChannelMerger(32)
+
+      merger.connect(audioCtx.current.destination)
+      source.current.connect(merger, 0, 1)
+      source.current.connect(merger, 0, 0)
+      //source.current.start(0)
+      return source.current
+      //source.buffer
+    }
+    async function cbd() {
+      source.current = await getBufferByUrl(url)
+      wavesurfer.current.loadDecodedBuffer(source.current.buffer)
+      console.log(source.current)
+      //source.current.start(0)
+    }
+
     // Removes events, elements and disconnects Web Audio nodes.
     // when component unmount
     return () => wavesurfer.current.destroy()
@@ -102,12 +133,23 @@ export function Clip({ url, tracksId, clipId }) {
   }, [audioDriverOutName])
 
   useEffect(() => {
+    let startWasCalled = false
     if (isPlaying) {
+      source.current.start(0)
+
       dispatch(toggleIsPlaying({ tracksId, clipId, isPlaying: true }))
-      wavesurfer.current.play(0.001)
+      //wavesurfer.current.play(0.001)
+      //audioCtx.current && audioCtx.current.resume()
+      startWasCalled = true
+      console.log('tsafdf')
     } else {
       dispatch(toggleIsPlaying({ tracksId, clipId, isPlaying: false }))
-      wavesurfer.current.stop(0.001)
+
+      //wavesurfer.current.stop(0.001)
+      if (startWasCalled) {
+        source.current.stop(0)
+        //startWasCalled = false
+      }
     }
   }, [isPlaying])
 
@@ -241,7 +283,8 @@ export function Clip({ url, tracksId, clipId }) {
   function handlePlayPause() {
     setPlay(!playing)
     //dispatch(toggleIsPlaying({ tracksId, clipId, isPlaying: !isPlaying }))
-    wavesurfer.current.playPause()
+    //wavesurfer.current.playPause()
+    //source.current.buffer.start()
   }
 
   function onVolumeChange(e, value) {
@@ -262,9 +305,11 @@ Clip.propTypes = {
 }
 
 function formWaveSurferOptions(ref) {
-  //const audioContext = new AudioContext()
+  // const processor = audioaudioCtx.current.createScriptProcessor(1024, 1, 1)
+
   return {
-    // audioContext,
+    // audioaudioCtx.current,
+    // audioScriptProcessor: processor,
     container: ref,
     // splitChannels: true,
     //waveColor: '#eee',
