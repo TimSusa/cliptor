@@ -50,7 +50,7 @@ function MenuAppBarCmp(props) {
             }}
           />
           <TextField
-            label='ClipRate'
+            label='StepTick'
             type='number'
             inputProps={{
               min: 1,
