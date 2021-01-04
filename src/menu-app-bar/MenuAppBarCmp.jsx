@@ -11,12 +11,12 @@ import MenuIcon from '@material-ui/icons/Menu'
 import { actionsViewSettings } from '../global-state'
 export const MenuAppBar = MenuAppBarCmp
 
-const { setBpm } = actionsViewSettings
+const { setBpm, setWindowFrameInSteps } = actionsViewSettings
 function MenuAppBarCmp(props) {
   const theme = useTheme()
   const dispatch = useDispatch()
   const classes = makeStyles(styles.bind(this, theme))()
-  const { bpm } = useSelector((state) => state.viewSettings)
+  const { bpm, windowFrameInSteps } = useSelector((state) => state.viewSettings)
   return (
     <div className={classes.root}>
       <AppBar className={classes.appBar} position='fixed'>
@@ -47,6 +47,24 @@ function MenuAppBarCmp(props) {
             defaultValue={bpm}
             onChange={(e) => {
               dispatch(setBpm({ bpm: e.target.event }))
+            }}
+          />
+          <TextField
+            label='ClipRate'
+            type='number'
+            inputProps={{
+              min: 1,
+              max: 32
+            }}
+            InputLabelProps={{
+              shrink: true
+            }}
+            variant='standard'
+            defaultValue={windowFrameInSteps}
+            onChange={(e) => {
+              dispatch(
+                setWindowFrameInSteps({ windowFrameInSteps: e.target.event })
+              )
             }}
           />
         </Toolbar>

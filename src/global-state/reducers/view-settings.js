@@ -2,6 +2,9 @@ export const viewSettings = {
   setBpm(state, { payload: { bpm } }) {
     state.bpm = bpm
   },
+  setWindowFrameInSteps(state, { payload: { windowFrameInSteps } }) {
+    state.windowFrameInSteps = windowFrameInSteps
+  },
   changeCurrentScene(state, { payload: { currentSceneIdx } }) {
     state.currentSceneIdx = currentSceneIdx
   },
