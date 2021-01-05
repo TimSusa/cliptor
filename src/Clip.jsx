@@ -21,6 +21,8 @@ import { actionsContent, actionsViewSettings } from './global-state'
 
 import { AudioDriverOutMenu } from './AudioDriverOutMenu'
 
+const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
+
 const useStyles = makeStyles(() => ({
   root: {
     display: 'flex',
@@ -238,8 +240,13 @@ export function Clip({ url, tracksId, clipId }) {
   function handlePlayPause() {
     setPlay(!playing)
     //dispatch(toggleIsPlaying({ tracksId, clipId, isPlaying: !isPlaying }))
+    if (isPlaying) {
+      dispatch(registerClip({ clip: { tracksId, clipId, isPlaying: false } }))
 
-    dispatch(registerClip({ clip: { tracksId, clipId, isPlaying: true } }))
+    } else {
+      dispatch(registerClip({ clip: { tracksId, clipId, isPlaying: true } }))
+
+    }
     //wavesurfer.current.playPause()
   }
 
@@ -261,9 +268,20 @@ Clip.propTypes = {
 }
 
 function formWaveSurferOptions(ref) {
+  if (isSafari) {
+    // Safari 11 or newer automatically suspends new AudioContext's that aren't
+    // created in response to a user-gesture, like a click or tap, so create one
+    // here (inc. the script processor)
+    var audioContext = window.AudioContext || window.webkitAudioContext
+    var context = new AudioContext()
+    var processor = context.createScriptProcessor(1024, 1, 1)
+  }
+
   //const audioContext = new AudioContext()
   return {
     // audioContext,
+    audioContext: audioContext || null,
+    audioScriptProcessor: processor || null,
     container: ref,
     closeAudioContext: true,
     // splitChannels: true,
