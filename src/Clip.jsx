@@ -57,7 +57,7 @@ export function Clip({ url, tracksId, clipId }) {
   } = tracks[tracksIdx].data[clipIdx]
   const waveformRef = useRef(null)
   const wavesurfer = useRef(null)
-  const startTime = useRef(window.performance.now())
+  // const startTime = useRef(window.performance.now())
   const [playing, setPlay] = useState(isPlaying)
   const [isLoading, setIsLoading] = useState(true)
 
@@ -98,15 +98,14 @@ export function Clip({ url, tracksId, clipId }) {
   }, [audioDriverOutName])
 
   useEffect(() => {
-    let playAlreadyStarted = false
-    const ct = wavesurfer.current.backend.ac.currentTime
-    const diff = (startTime.current - ct) / 1000
+    // let playAlreadyStarted = false
+    // const ct = wavesurfer.current.backend.ac.currentTime
+    // const diff = (startTime.current - ct) / 1000 + 0.1
 
     if (isPlaying) {
-      wavesurfer.current.play(playAlreadyStarted ? diff : 0)
-      playAlreadyStarted = true
+      wavesurfer.current.play()
     } else {
-      wavesurfer.current.stop(diff)
+      wavesurfer.current.stop()
     }
   }, [isPlaying])
 
