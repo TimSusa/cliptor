@@ -57,6 +57,7 @@ export function Clip({ url, tracksId, clipId }) {
   } = tracks[tracksIdx].data[clipIdx]
   const waveformRef = useRef(null)
   const wavesurfer = useRef(null)
+  const startTime = useRef(window.performance.now())
   const [playing, setPlay] = useState(isPlaying)
   const [isLoading, setIsLoading] = useState(true)
 
@@ -103,13 +104,19 @@ export function Clip({ url, tracksId, clipId }) {
   }, [audioDriverOutName])
 
   useEffect(() => {
+    const ac = wavesurfer.current.backend.ac
+    const diff = startTime.current - ac.currentTime
+    console.log(diff)
+
     if (isPlaying) {
       //dispatch(toggleIsPlaying({ tracksId, clipId, isPlaying: false }))
 
-      wavesurfer.current.play(0.001)
+      // wavesurfer.current.skip(diff)
+      wavesurfer.current.play()
     } else {
       //dispatch(toggleIsPlaying({ tracksId, clipId, isPlaying: false }))
-      wavesurfer.current.stop(0.001)
+      //wavesurfer.current.skip(diff)
+      wavesurfer.current.stop(diff)
     }
   }, [isPlaying])
 
@@ -270,6 +277,7 @@ function formWaveSurferOptions(ref) {
   return {
     // audioContext,
     container: ref,
+    closeAudioContext: true,
     // splitChannels: true,
     //waveColor: '#eee',
     // progressColor: 'OrangeRed',
