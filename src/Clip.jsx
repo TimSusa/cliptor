@@ -21,8 +21,6 @@ import { actionsContent, actionsViewSettings } from './global-state'
 
 import { AudioDriverOutMenu } from './AudioDriverOutMenu'
 
-const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
-
 const useStyles = makeStyles(() => ({
   root: {
     display: 'flex',
@@ -101,7 +99,6 @@ export function Clip({ url, tracksId, clipId }) {
 
   useEffect(() => {
     const ct = wavesurfer.current.backend.ac.currentTime
-    console.log('current time', ct)
     const diff = (startTime.current - ct) / 1000
 
     if (isPlaying) {
@@ -267,14 +264,7 @@ Clip.propTypes = {
 }
 
 function formWaveSurferOptions(ref) {
-  let audioContext = isSafari
-    ? new window.AudioContext() || new window.webkitAudioContext()
-    : null
-
   return {
-    audioContext: audioContext || null,
-    audioScriptProcessor:
-      audioContext.createScriptProcessor(1024, 1, 1) || null,
     container: ref,
     closeAudioContext: false,
     // splitChannels: true,
