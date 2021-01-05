@@ -104,15 +104,15 @@ export function Clip({ url, tracksId, clipId }) {
   }, [audioDriverOutName])
 
   useEffect(() => {
-    const ac = wavesurfer.current.backend.ac
-    const diff = startTime.current - ac.currentTime
+    const ct = wavesurfer.current.getCurrentTime()
+    const diff = (startTime.current - ct) / 1000
     console.log(diff)
 
     if (isPlaying) {
       //dispatch(toggleIsPlaying({ tracksId, clipId, isPlaying: false }))
 
       // wavesurfer.current.skip(diff)
-      wavesurfer.current.play()
+      wavesurfer.current.play(diff)
     } else {
       //dispatch(toggleIsPlaying({ tracksId, clipId, isPlaying: false }))
       //wavesurfer.current.skip(diff)
