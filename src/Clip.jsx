@@ -98,11 +98,13 @@ export function Clip({ url, tracksId, clipId }) {
   }, [audioDriverOutName])
 
   useEffect(() => {
+    let playAlreadyStarted = false
     const ct = wavesurfer.current.backend.ac.currentTime
     const diff = (startTime.current - ct) / 1000
 
     if (isPlaying) {
-      wavesurfer.current.play(0)
+      wavesurfer.current.play(playAlreadyStarted ? diff : 0)
+      playAlreadyStarted = true
     } else {
       wavesurfer.current.stop(diff)
     }
