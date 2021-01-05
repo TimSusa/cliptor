@@ -100,7 +100,8 @@ export function Clip({ url, tracksId, clipId }) {
   }, [audioDriverOutName])
 
   useEffect(() => {
-    const ct = wavesurfer.current.getCurrentTime()
+    const ct = wavesurfer.current.backend.ac.currentTime
+    console.log('current time', ct)
     const diff = (startTime.current - ct) / 1000
 
     if (isPlaying) {
@@ -242,10 +243,8 @@ export function Clip({ url, tracksId, clipId }) {
     //dispatch(toggleIsPlaying({ tracksId, clipId, isPlaying: !isPlaying }))
     if (isPlaying) {
       dispatch(registerClip({ clip: { tracksId, clipId, isPlaying: false } }))
-
     } else {
       dispatch(registerClip({ clip: { tracksId, clipId, isPlaying: true } }))
-
     }
     //wavesurfer.current.playPause()
   }
@@ -268,22 +267,16 @@ Clip.propTypes = {
 }
 
 function formWaveSurferOptions(ref) {
-  if (isSafari) {
-    // Safari 11 or newer automatically suspends new AudioContext's that aren't
-    // created in response to a user-gesture, like a click or tap, so create one
-    // here (inc. the script processor)
-    var audioContext = window.AudioContext || window.webkitAudioContext
-    var context = new AudioContext()
-    var processor = context.createScriptProcessor(1024, 1, 1)
-  }
+  let audioContext = isSafari
+    ? new window.AudioContext() || new window.webkitAudioContext()
+    : null
 
-  //const audioContext = new AudioContext()
   return {
-    // audioContext,
     audioContext: audioContext || null,
-    audioScriptProcessor: processor || null,
+    audioScriptProcessor:
+      audioContext.createScriptProcessor(1024, 1, 1) || null,
     container: ref,
-    closeAudioContext: true,
+    closeAudioContext: false,
     // splitChannels: true,
     //waveColor: '#eee',
     // progressColor: 'OrangeRed',
