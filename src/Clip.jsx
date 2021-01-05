@@ -61,15 +61,9 @@ export function Clip({ url, tracksId, clipId }) {
   const [playing, setPlay] = useState(isPlaying)
   const [isLoading, setIsLoading] = useState(true)
 
-  // create new WaveSurfer instance
-  // On component mount and when url changes
   useEffect(() => {
-    //setPlay(false)
-    //dispatch(toggleIsPlaying({ tracksId, clipId, isPlaying: false }))
-
     const options = formWaveSurferOptions(waveformRef.current)
     wavesurfer.current = WaveSurfer.create(options)
-    //wavesurfer.current.cancelAjax()
     wavesurfer.current.load(url)
 
     wavesurfer.current.on('loading', (progress) => {
@@ -106,16 +100,10 @@ export function Clip({ url, tracksId, clipId }) {
   useEffect(() => {
     const ct = wavesurfer.current.getCurrentTime()
     const diff = (startTime.current - ct) / 1000
-    console.log(diff)
 
     if (isPlaying) {
-      //dispatch(toggleIsPlaying({ tracksId, clipId, isPlaying: false }))
-
-      // wavesurfer.current.skip(diff)
       wavesurfer.current.play(diff)
     } else {
-      //dispatch(toggleIsPlaying({ tracksId, clipId, isPlaying: false }))
-      //wavesurfer.current.skip(diff)
       wavesurfer.current.stop(diff)
     }
   }, [isPlaying])
