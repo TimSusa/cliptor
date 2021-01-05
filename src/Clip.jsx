@@ -102,7 +102,7 @@ export function Clip({ url, tracksId, clipId }) {
     const diff = (startTime.current - ct) / 1000
 
     if (isPlaying) {
-      wavesurfer.current.play(diff)
+      wavesurfer.current.play(0)
     } else {
       wavesurfer.current.stop(diff)
     }
