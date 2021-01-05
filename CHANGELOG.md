@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.12](https://github.com/TimSusa/cliptor/compare/v0.0.11...v0.0.12) (2021-01-05)
+
+
+### Features
+
+* give stop measured latency for compensation ([ea2656a](https://github.com/TimSusa/cliptor/commit/ea2656ab49dd56563107cc48a8410165a6f5b121))
+* Improve clip latenncy compensation ([1178acb](https://github.com/TimSusa/cliptor/commit/1178acb4efccb37f2e3e635189215c480b2059fe))
+
+
+### Bug Fixes
+
+* play and stop of clips; Fix Safari ([6b8aac0](https://github.com/TimSusa/cliptor/commit/6b8aac0f7dcbf8d754ec94fc0beefd3382015948))
+
 ### [0.0.11](https://github.com/TimSusa/cliptor/compare/v0.0.10...v0.0.11) (2021-01-04)
 
 
