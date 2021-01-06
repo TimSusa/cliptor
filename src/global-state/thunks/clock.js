@@ -7,22 +7,43 @@ const {
 } = actionsContent
 const { changeCurrentScene, clearRegisteredClips } = actionsViewSettings
 
+let timerWorker = null
+
 export function initClock() {
-  let timer = null
+  //let timer = null
   return function (dispatch, getState) {
     const {
       viewSettings: { bpm, windowFrameInSteps }
     } = getState()
 
-    console.log('initClock with BPM: ', bpm, ' Steps: ', windowFrameInSteps)
+    //console.log('initClock with BPM: ', bpm, ' Steps: ', windowFrameInSteps)
 
-    clearInterval(timer)
-    timer = setInterval(() => tick(), (60 / bpm) * windowFrameInSteps * 1000)
+    var timerWorkerBlob = new Blob([
+      `var timeoutID=0;function schedule(){timeoutID=setTimeout(function(){postMessage('schedule'); schedule();},${
+        (60 / bpm) * windowFrameInSteps * 1000
+      });} onmessage = function(e) { if (e.data == 'start') { if (!timeoutID) schedule();} else if (e.data == 'stop') {if (timeoutID) clearTimeout(timeoutID); timeoutID=0;};}`
+    ])
+
+    // Obtain a blob URL reference to our worker 'file'.
+    var timerWorkerBlobURL = window.URL.createObjectURL(timerWorkerBlob)
+
+    timerWorker = new Worker(timerWorkerBlobURL)
+    timerWorker.onmessage = tick
+    timerWorker.postMessage('init') // Start the worker.
+    timerWorker.postMessage('start')
+    // TODO: Solution is pretty shitty for small devices, so put this into a webworker like:
+    // https://stackoverflow.com/questions/38373918/web-workers-to-make-setinterval-work-as-normal
+    // https://github.com/facebook/create-react-app/issues/3660
+    //clearInterval(timer)
+
+    //timer = setInterval(() => tick(), (60 / bpm) * windowFrameInSteps * 1000)
 
     function tick() {
       const {
         viewSettings: { currentSceneIdx, registeredClips }
       } = getState()
+      // eslint-disable-next-line no-undef
+      //timerWorker.postMessage('start')
       if (currentSceneIdx !== null) {
         dispatch(toggleIsScenePlaying({ sceneIdx: currentSceneIdx }))
         dispatch(changeCurrentScene({ currentSceneIdx: null }))
