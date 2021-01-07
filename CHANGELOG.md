@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.13](https://github.com/TimSusa/cliptor/compare/v0.0.12...v0.0.13) (2021-01-07)
+
+
+### Features
+
+* Load file into clip via dialog on web ([d872513](https://github.com/TimSusa/cliptor/commit/d872513801d063bfa5d1cde3932341cbb8b599a3))
+* Load file on electron app ([8dc6717](https://github.com/TimSusa/cliptor/commit/8dc6717903ff8242c93e16ccd805acc178f10186))
+* try to use a webworker for the timer ([2cbf435](https://github.com/TimSusa/cliptor/commit/2cbf435c5fd5db97109dfefad45a4ee415165ae4))
+
+
+### Bug Fixes
+
+* Compensate only after first play ([38125e3](https://github.com/TimSusa/cliptor/commit/38125e3ebe44ca7c277bcc6763f996a96b0ada69))
+* correction of audio context constructor calling on safari ([b3a83e8](https://github.com/TimSusa/cliptor/commit/b3a83e82df027c5f704d2b54b2cee8971cd338f3))
+* Get rid of approach ([285af4b](https://github.com/TimSusa/cliptor/commit/285af4b769fef2a897043dcade3aa91441d5f6ff))
+* hotfix play start ([ae991b3](https://github.com/TimSusa/cliptor/commit/ae991b3dcf40655d39d1e27e691b3c405b5332c6))
+* no compensation on play ([42282c5](https://github.com/TimSusa/cliptor/commit/42282c531add3c2649963db34e2b84edc7fc07ac))
+* Safari Browser desktop ([5c5f307](https://github.com/TimSusa/cliptor/commit/5c5f307bbd8d0bcd8892443d2ecdc556d8059cce))
+* zero does not make it better at play ([0ae2c13](https://github.com/TimSusa/cliptor/commit/0ae2c139f311d7c17a9c6d807e756e69991ddcaa))
+
 ### [0.0.12](https://github.com/TimSusa/cliptor/compare/v0.0.11...v0.0.12) (2021-01-05)
 
 
