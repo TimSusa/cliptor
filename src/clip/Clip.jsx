@@ -61,7 +61,6 @@ export function Clip({ url, tracksId, clipId }) {
   const wavesurfer = useRef(null)
   // const startTime = useRef(window.performance.now())
   const [playing, setPlay] = useState(isPlaying)
-  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const options = formWaveSurferOptions(waveformRef.current)
@@ -69,11 +68,6 @@ export function Clip({ url, tracksId, clipId }) {
 
     wavesurfer.current.load(url)
 
-    wavesurfer.current.on('loading', (progress) => {
-      if (progress === 100) {
-        setIsLoading(false)
-      }
-    })
     wavesurfer.current.on('ready', function () {
       // make sure object stillavailable when file loaded
       // if (wavesurfer.current) {
@@ -218,7 +212,6 @@ export function Clip({ url, tracksId, clipId }) {
           </IconButton>
         </ButtonLoadAudioFile>
       </div>
-      <div>{isLoading ? 'IS LOADING...' : ''}</div>
       <div
         style={{
           width: '100%',
