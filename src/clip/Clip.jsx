@@ -187,20 +187,30 @@ export function Clip({ url, tracksId, clipId }) {
           <FastForwardIcon style={{ width: 16 }}></FastForwardIcon>
         </IconButton>
         <ButtonLoadAudioFile
-          onFileChange={({ content }) => {
-            // sort out to load the encoded data into the store and rerender the component
-            var blob = new window.Blob([new Uint8Array(content)])
-            wavesurfer.current.stop()
-            wavesurfer.current.destroy()
-            const options = formWaveSurferOptions(waveformRef.current)
-            wavesurfer.current = WaveSurfer.create(options)
-            // Load the blob into Wavesurfer
-            wavesurfer.current.loadBlob(blob)
-            wavesurfer.current.on('finish', () => {
-              if (isLooping) {
-                wavesurfer.current.playPause()
-              }
-            })
+          onFileChange={({ content, presetName }) => {
+            if (process.env.REACT_APP_IS_WEB_MODE === 'false') {
+              dispatch(
+                changeClipSrc({
+                  tracksId,
+                  clipId,
+                  src: presetName
+                })
+              )
+            } else {
+              // sort out to load the encoded data into the store and rerender the component
+              var blob = new window.Blob([new Uint8Array(content)])
+              wavesurfer.current.stop()
+              wavesurfer.current.destroy()
+              const options = formWaveSurferOptions(waveformRef.current)
+              wavesurfer.current = WaveSurfer.create(options)
+              // Load the blob into Wavesurfer
+              wavesurfer.current.loadBlob(blob)
+              wavesurfer.current.on('finish', () => {
+                if (isLooping) {
+                  wavesurfer.current.playPause()
+                }
+              })
+            }
           }}
         >
           <IconButton aria-label='load-file'>
