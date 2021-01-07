@@ -8,16 +8,18 @@ import PlayIcon from '@material-ui/icons/PlayArrow'
 import NoLoopIcon from '@material-ui/icons/ArrowRightAlt'
 import LoopIcon from '@material-ui/icons/Loop'
 import PauseIcon from '@material-ui/icons/Pause'
-import MinimizeIcon from '@material-ui/icons/Minimize'
-import MaximizeIcon from '@material-ui/icons/Maximize'
+// import MinimizeIcon from '@material-ui/icons/Minimize'
+// import MaximizeIcon from '@material-ui/icons/Maximize'
 import FastForwardIcon from '@material-ui/icons/FastForward'
 import FastRewindIcon from '@material-ui/icons/FastRewind'
+import SaveIcon from '@material-ui/icons/Save'
 import WaveSurfer from 'wavesurfer.js'
 import Slider from '@material-ui/core/Slider'
+import { ButtonLoadAudioFile } from './ButtonLoadAudioFile'
 //import Regions from 'wavesurfer.js/dist/plugin/wavesurfer.regions.min.js'
 //import Cursor from 'wavesurfer.js/dist/plugin/wavesurfer.cursor.min.js'
 
-import { actionsContent, actionsViewSettings } from './global-state'
+import { actionsContent, actionsViewSettings } from '../global-state'
 
 import { AudioDriverOutMenu } from './AudioDriverOutMenu'
 
@@ -39,8 +41,8 @@ export function Clip({ url, tracksId, clipId }) {
     changeClipSrc,
     changeClipVolume,
     // toggleIsPlaying,
-    toggleIsLooping,
-    toggleIsWaveformShown
+    toggleIsLooping
+    //toggleIsWaveformShown
   } = actionsContent
   const audioDriverOuts = useSelector(
     (state) => state.viewSettings.audioDriverOuts
@@ -64,6 +66,7 @@ export function Clip({ url, tracksId, clipId }) {
   useEffect(() => {
     const options = formWaveSurferOptions(waveformRef.current)
     wavesurfer.current = WaveSurfer.create(options)
+
     wavesurfer.current.load(url)
 
     wavesurfer.current.on('loading', (progress) => {
@@ -183,24 +186,27 @@ export function Clip({ url, tracksId, clipId }) {
         >
           <FastForwardIcon style={{ width: 16 }}></FastForwardIcon>
         </IconButton>
-        <IconButton
-          aria-label='show waveform'
-          onClick={() => {
-            dispatch(
-              toggleIsWaveformShown({
-                tracksId,
-                clipId,
-                isWaveformShown: !isWaveformShown
-              })
-            )
+        <ButtonLoadAudioFile
+          onFileChange={({ content }) => {
+            // sort out to load the encoded data into the store and rerender the component
+            var blob = new window.Blob([new Uint8Array(content)])
+            wavesurfer.current.stop()
+            wavesurfer.current.destroy()
+            const options = formWaveSurferOptions(waveformRef.current)
+            wavesurfer.current = WaveSurfer.create(options)
+            // Load the blob into Wavesurfer
+            wavesurfer.current.loadBlob(blob)
+            wavesurfer.current.on('finish', () => {
+              if (isLooping) {
+                wavesurfer.current.playPause()
+              }
+            })
           }}
         >
-          {isWaveformShown ? (
-            <MinimizeIcon style={{ width: 16 }} />
-          ) : (
-            <MaximizeIcon style={{ width: 16 }} />
-          )}
-        </IconButton>
+          <IconButton aria-label='load-file'>
+            <SaveIcon style={{ width: 16 }}></SaveIcon>
+          </IconButton>
+        </ButtonLoadAudioFile>
       </div>
       <div>{isLoading ? 'IS LOADING...' : ''}</div>
       <div
@@ -259,9 +265,10 @@ export function Clip({ url, tracksId, clipId }) {
 }
 
 Clip.propTypes = {
+  blob: PropTypes.any,
   clipId: PropTypes.any,
   tracksId: PropTypes.any,
-  url: PropTypes.any
+  url: PropTypes.string
 }
 
 function formWaveSurferOptions(ref) {

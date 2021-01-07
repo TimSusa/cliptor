@@ -3,7 +3,7 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import LoadIcon from '@material-ui/icons/InsertDriveFile'
-import FileReader from './FileReader'
+import FileReader from '../common/FileReader'
 import { PropTypes } from 'prop-types'
 
 ListItemLoadFileOnWeb.propTypes = {

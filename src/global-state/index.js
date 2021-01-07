@@ -30,22 +30,8 @@ export const viewSettingsInitState = {
   windowFrameInSteps: 8,
   currentSceneIdx: null,
   registeredClips: [],
-  columns: 18,
   audioDriverOuts: [],
-  availableDrivers: {
-    inputs: {
-      None: {
-        ccChannels: [],
-        noteChannels: []
-      }
-    },
-    outputs: {
-      None: {
-        ccChannels: [],
-        noteChannels: []
-      }
-    }
-  },
+
   electronAppSettings: {
     isDevConsoleEnabled: true,
     isAllowedToUpdate: false,

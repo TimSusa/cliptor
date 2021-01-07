@@ -1,4 +1,4 @@
-import { Clip } from './Clip'
+import { Clip } from '../clip/Clip'
 import React, { useEffect } from 'react'
 import { useTheme } from '@material-ui/styles'
 import { makeStyles } from '@material-ui/styles'
@@ -10,9 +10,10 @@ import AddTrackIcon from '@material-ui/icons/PlaylistAdd'
 import PlaySceneIcon from '@material-ui/icons/PlayCircleOutline'
 import StopSceneIcon from '@material-ui/icons/Stop'
 import AddClipIcon from '@material-ui/icons/Add'
-import { content } from './utils/example'
-import { initDrivers } from './global-state/thunks/drivers'
-import { actionsContent, actionsViewSettings } from './global-state'
+
+import { content } from '../utils/example'
+import { initDrivers } from '../global-state/thunks/drivers'
+import { actionsContent, actionsViewSettings } from '../global-state'
 
 export function Matrix() {
   const {
@@ -83,9 +84,9 @@ export function Matrix() {
               minHeight: 'calc(100vh'
             }}
           >
-            {(track.data || []).map(({ id, src }) => (
+            {(track.data || []).map(({ id, src, blob }) => (
               <ListItem key={id}>
-                <Clip url={src} tracksId={track.id} clipId={id} />
+                <Clip url={src} blob={blob} tracksId={track.id} clipId={id} />
               </ListItem>
             ))}
             <ListItem>
