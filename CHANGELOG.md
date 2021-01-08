@@ -2,6 +2,61 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.13](https://github.com/TimSusa/cliptor/compare/v0.0.12...v0.0.13) (2021-01-07)
+
+
+### Features
+
+* Load file into clip via dialog on web ([d872513](https://github.com/TimSusa/cliptor/commit/d872513801d063bfa5d1cde3932341cbb8b599a3))
+* Load file on electron app ([8dc6717](https://github.com/TimSusa/cliptor/commit/8dc6717903ff8242c93e16ccd805acc178f10186))
+* try to use a webworker for the timer ([2cbf435](https://github.com/TimSusa/cliptor/commit/2cbf435c5fd5db97109dfefad45a4ee415165ae4))
+
+
+### Bug Fixes
+
+* Compensate only after first play ([38125e3](https://github.com/TimSusa/cliptor/commit/38125e3ebe44ca7c277bcc6763f996a96b0ada69))
+* correction of audio context constructor calling on safari ([b3a83e8](https://github.com/TimSusa/cliptor/commit/b3a83e82df027c5f704d2b54b2cee8971cd338f3))
+* Get rid of approach ([285af4b](https://github.com/TimSusa/cliptor/commit/285af4b769fef2a897043dcade3aa91441d5f6ff))
+* hotfix play start ([ae991b3](https://github.com/TimSusa/cliptor/commit/ae991b3dcf40655d39d1e27e691b3c405b5332c6))
+* no compensation on play ([42282c5](https://github.com/TimSusa/cliptor/commit/42282c531add3c2649963db34e2b84edc7fc07ac))
+* Safari Browser desktop ([5c5f307](https://github.com/TimSusa/cliptor/commit/5c5f307bbd8d0bcd8892443d2ecdc556d8059cce))
+* zero does not make it better at play ([0ae2c13](https://github.com/TimSusa/cliptor/commit/0ae2c139f311d7c17a9c6d807e756e69991ddcaa))
+
+### [0.0.12](https://github.com/TimSusa/cliptor/compare/v0.0.11...v0.0.12) (2021-01-05)
+
+
+### Features
+
+* give stop measured latency for compensation ([ea2656a](https://github.com/TimSusa/cliptor/commit/ea2656ab49dd56563107cc48a8410165a6f5b121))
+* Improve clip latenncy compensation ([1178acb](https://github.com/TimSusa/cliptor/commit/1178acb4efccb37f2e3e635189215c480b2059fe))
+
+
+### Bug Fixes
+
+* play and stop of clips; Fix Safari ([6b8aac0](https://github.com/TimSusa/cliptor/commit/6b8aac0f7dcbf8d754ec94fc0beefd3382015948))
+
+### [0.0.11](https://github.com/TimSusa/cliptor/compare/v0.0.10...v0.0.11) (2021-01-04)
+
+
+### Features
+
+* Change audiodriver on playback without issues ([afc8a48](https://github.com/TimSusa/cliptor/commit/afc8a48134229809bef124fbbc85fa286d260ad2))
+* Establish stop of scenes ([168963b](https://github.com/TimSusa/cliptor/commit/168963b8f6fa5045094fec9cd677e571bee1c868))
+* Set clip rate ([4fc6cbf](https://github.com/TimSusa/cliptor/commit/4fc6cbf4a2972d769fd1f101ee922f20a767bf10))
+* Sync clip playback, stop other clips ([3f5bfa6](https://github.com/TimSusa/cliptor/commit/3f5bfa67efd6ccc5b7366e3289e4df98e2978fb5))
+
+
+### Bug Fixes
+
+* default driver ([fa2a99f](https://github.com/TimSusa/cliptor/commit/fa2a99f323c0dfed54171a1fed9c412eda78fefd))
+* having only default driver ([97be2ca](https://github.com/TimSusa/cliptor/commit/97be2ca653f4fc02b7c49be75d4fe6ff8c2f8498))
+* label ([1810899](https://github.com/TimSusa/cliptor/commit/1810899bda8f9c4cd7c5588d37518fe29b638694))
+* not using self audiocontext ([f3adfec](https://github.com/TimSusa/cliptor/commit/f3adfec1f8dd3565c1ba89a826f120c74271abc0))
+* put try catch arround scanfordrivers ([afea0fc](https://github.com/TimSusa/cliptor/commit/afea0fc59faf772359d80dca6959781574da6401))
+* Stop scene ui behaviour ([a13b202](https://github.com/TimSusa/cliptor/commit/a13b202de6fe88099ac9af59972e02e253e31d36))
+* Try to fix on raspi audio out ([09cfe36](https://github.com/TimSusa/cliptor/commit/09cfe36daed13c581a42e5c8f157f4e55595b2bf))
+* Wording ([860ded7](https://github.com/TimSusa/cliptor/commit/860ded7ef4c967b3f29df161e627632e47e90f8a))
+
 ### [0.0.10](https://github.com/TimSusa/cliptor/compare/v0.0.9...v0.0.10) (2021-01-02)
 
 

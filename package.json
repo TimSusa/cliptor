@@ -2,7 +2,7 @@
   "name": "cliptor",
   "author": "timmsusa@googlemail.com",
   "description": "Cliptor was invented to have the same functionality available like ablton live matrix sequencer",
-  "version": "0.0.11",
+  "version": "0.0.13",
   "main": "./src/app/electron.js",
   "homepage": "./",
   "private": false,

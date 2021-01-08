@@ -1,12 +1,17 @@
 import PropTypes from 'prop-types'
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React, { useRef, useEffect } from 'react'
 
-export default class FileInput extends React.PureComponent {
-  _reactFileReaderInput
-
-  constructor(props) {
-    super(props)
+export default function FileInput(props) {
+  const _reactFileReaderInput = useRef(null)
+  const { as, children = <div></div>, style, onChange } = props
+  let hiddenInputStyle = {}
+  if (children) {
+    hiddenInputStyle = {
+      position: 'absolute',
+      display: 'none'
+    }
+  }
+  useEffect(() => {
     const win = typeof window === 'object' ? window : {}
     if (!win.File || !win.FileReader || !win.FileList || !win.Blob) {
       // eslint-disable-next-line no-console
@@ -15,40 +20,25 @@ export default class FileInput extends React.PureComponent {
           ' File reader functionality may not fully work.'
       )
     }
-  }
+  }, [])
 
-  render() {
-    const { children, style, ...props } = this.props
-    let hiddenInputStyle = {}
-    if (children) {
-      hiddenInputStyle = {
-        position: 'absolute',
-        display: 'none'
-      }
-    }
-
-    return (
-      <div onClick={this.triggerInput} style={style}>
-        <input
-          {...props}
-          type='file'
-          ref={(c) => {
-            this._reactFileReaderInput = c
-          }}
-          onChange={this.handleChange}
-          onClick={() => {
-            this._reactFileReaderInput.value = null
-          }}
-          style={hiddenInputStyle}
-        />
-        {children}
-      </div>
-    )
-  }
-
-  handleChange = (e) => {
+  return (
+    <div onClick={triggerInput} style={style}>
+      <input
+        type='file'
+        ref={_reactFileReaderInput}
+        onChange={handleChange}
+        onClick={() => {
+          _reactFileReaderInput.current = null
+        }}
+        style={hiddenInputStyle}
+      />
+      {children}
+    </div>
+  )
+  function handleChange(e) {
     const files = Array.prototype.slice.call(e.target.files) // Convert into Array
-    const readAs = (this.props.as || 'url').toLowerCase()
+    const readAs = (as || 'url').toLowerCase()
 
     // Build Promise List, each promise resolved by FileReader.onload.
     Promise.all(
@@ -62,7 +52,7 @@ export default class FileInput extends React.PureComponent {
               resolve([result, file])
             })
 
-            // Read the file with format based on this.props.as.
+            // Read the file with format based on props.as.
             switch (readAs) {
               case 'binary': {
                 reader.readAsBinaryString(file)
@@ -86,15 +76,16 @@ export default class FileInput extends React.PureComponent {
       )
     ).then((zippedResults) => {
       // Run the callback after all files have been read.
-      this.props.onChange(e, zippedResults)
+      onChange(e, zippedResults)
     })
   }
 
-  triggerInput = () => {
+  function triggerInput() {
+    console.log('trigger input')
     // eslint-disable-next-line react/no-find-dom-node
-    const input = ReactDOM.findDOMNode(this._reactFileReaderInput)
-    if (input) {
-      input.click()
+    //const input = ReactDOM.findDOMNode(_reactFileReaderInput)
+    if (_reactFileReaderInput.current) {
+      _reactFileReaderInput.current.click()
     }
   }
 }

@@ -11,6 +11,7 @@ export const content = {
         {
           id: `clip-${uuidv4()}`,
           src: './bd.m4a',
+          blob: null,
           volume: 0.66,
           isLooping: true,
           ism4aeformShown: true,
@@ -30,6 +31,7 @@ export const content = {
         {
           id: `clip-${uuidv4()}`,
           src: './bd.m4a',
+          blob: null,
           volume: 0.66,
           isLooping: true,
           isWaveformShown: true,
@@ -46,6 +48,7 @@ export const content = {
     )
     state.tracks[tracksIdx].data[clipIdx].src = src
   },
+
   changeClipVolume(state, { payload: { tracksId, clipId, volume } }) {
     const tracksIdx = state.tracks.findIndex((item) => item.id === tracksId)
     const clipIdx = state.tracks[tracksIdx].data.findIndex(
@@ -58,7 +61,24 @@ export const content = {
     const clipIdx = state.tracks[tracksIdx].data.findIndex(
       (item) => item.id === clipId
     )
-    state.tracks[tracksIdx].data[clipIdx].isPlaying = isPlaying
+    state.tracks[tracksIdx].data[clipIdx].isPlaying = !isPlaying
+  },
+  toggleIsPlayingList(state, { payload: { clips } }) {
+    clips.forEach((clip) => {
+      const { tracksId, clipId, isPlaying } = clip
+      const tracksIdx = state.tracks.findIndex((item) => item.id === tracksId)
+      const clipIdx = state.tracks[tracksIdx].data.findIndex(
+        (item) => item.id === clipId
+      )
+
+      // stop old clips
+      if (isPlaying) {
+        state.tracks[tracksIdx].data.forEach((clipp, idx) => {
+          state.tracks[tracksIdx].data[idx].isPlaying = false
+        })
+      }
+      state.tracks[tracksIdx].data[clipIdx].isPlaying = isPlaying
+    })
   },
   toggleIsLooping(state, { payload: { tracksId, clipId, isLooping } }) {
     const tracksIdx = state.tracks.findIndex((item) => item.id === tracksId)

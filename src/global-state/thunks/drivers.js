@@ -23,17 +23,31 @@ export function initDrivers() {
 
 async function scanForAudioDrivers() {
   let list = []
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
   return new Promise((resolve, reject) => {
-    navigator.getUserMedia(
-      { audio: true, video: false },
-      async function () {
-        list = await refreshDeviceList(list)
-        resolve(list)
-      },
-      function (err) {
-        reject(err)
-      }
-    )
+    if (isSafari) {
+      navigator.webkitGetUserMedia(
+        { audio: true, video: false },
+        async function () {
+          list = await refreshDeviceList(list)
+          resolve(list)
+        },
+        function (err) {
+          reject(err)
+        }
+      )
+    } else {
+      navigator.getUserMedia(
+        { audio: true, video: false },
+        async function () {
+          list = await refreshDeviceList(list)
+          resolve(list)
+        },
+        function (err) {
+          reject(err)
+        }
+      )
+    }
   })
 }
 async function refreshDeviceList(listl) {

@@ -29,22 +29,9 @@ export const viewSettingsInitState = {
   bpm: 95,
   windowFrameInSteps: 8,
   currentSceneIdx: null,
-  columns: 18,
+  registeredClips: [],
   audioDriverOuts: [],
-  availableDrivers: {
-    inputs: {
-      None: {
-        ccChannels: [],
-        noteChannels: []
-      }
-    },
-    outputs: {
-      None: {
-        ccChannels: [],
-        noteChannels: []
-      }
-    }
-  },
+
   electronAppSettings: {
     isDevConsoleEnabled: true,
     isAllowedToUpdate: false,
