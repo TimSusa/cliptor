@@ -8,16 +8,19 @@ import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
-import PlayIcon from '@material-ui/icons/PlayArrow'
+//import PlayIcon from '@material-ui/icons/PlayArrow'
 import StopIcon from '@material-ui/icons/Stop'
 import context from '../global-state/context'
-import { actionsViewSettings } from '../global-state'
+import { actionsViewSettings, actionsContent } from '../global-state'
+//import { clock } from '../global-state/thunks/clock'
 import { playbackStates } from '../global-state/reducers/view-settings'
 import { TimerClockLabel } from './TimerClockLabel'
 
 export const MenuAppBar = MenuAppBarCmp
 
 const { setBpm, setWindowFrameInSteps, setPlaybackState } = actionsViewSettings
+
+const { stopAll } = actionsContent
 function MenuAppBarCmp(props) {
   const theme = useTheme()
   const dispatch = useDispatch()
@@ -41,23 +44,11 @@ function MenuAppBarCmp(props) {
             Cliptor
           </Typography>
           <TimerClockLabel></TimerClockLabel>
-          <IconButton
-            aria-label='play'
-            onClick={() => {
-              dispatch(
-                setPlaybackState({
-                  playbackState: playbackStates.PLAY,
-                  currentTimeStamp: audioContext.currentTime
-                })
-              )
-              console.log('GLOBAL PLAY: ', audioContext.currentTime)
-            }}
-          >
-            <PlayIcon></PlayIcon>
-          </IconButton>
+
           <IconButton
             aria-label='stop'
             onClick={() => {
+              dispatch(stopAll())
               dispatch(
                 setPlaybackState({
                   playbackState: playbackStates.STOP,

@@ -2,22 +2,17 @@ import PropTypes from 'prop-types'
 import React, { useEffect, useRef, useState, useContext } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
-//import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
 import PlayIcon from '@material-ui/icons/PlayArrow'
 import NoLoopIcon from '@material-ui/icons/ArrowRightAlt'
 import LoopIcon from '@material-ui/icons/Loop'
 import PauseIcon from '@material-ui/icons/Pause'
-// import MinimizeIcon from '@material-ui/icons/Minimize'
-// import MaximizeIcon from '@material-ui/icons/Maximize'
 import FastForwardIcon from '@material-ui/icons/FastForward'
 import FastRewindIcon from '@material-ui/icons/FastRewind'
 import SaveIcon from '@material-ui/icons/Save'
 import WaveSurfer from 'wavesurfer.js'
 import Slider from '@material-ui/core/Slider'
 import { ButtonLoadAudioFile } from './ButtonLoadAudioFile'
-//import Regions from 'wavesurfer.js/dist/plugin/wavesurfer.regions.min.js'
-//import Cursor from 'wavesurfer.js/dist/plugin/wavesurfer.cursor.min.js'
 import { actionsContent, actionsViewSettings } from '../global-state'
 import { AudioDriverOutMenu } from './AudioDriverOutMenu'
 import context from '../global-state/context'
@@ -37,13 +32,7 @@ export function Clip({ url, tracksId, clipId }) {
   const { audioContext } = useContext(context)
   const dispatch = useDispatch()
   const { registerClip } = actionsViewSettings
-  const {
-    changeClipSrc,
-    changeClipVolume,
-    // toggleIsPlaying,
-    toggleIsLooping
-    //toggleIsWaveformShown
-  } = actionsContent
+  const { changeClipSrc, changeClipVolume, toggleIsLooping } = actionsContent
   const audioDriverOuts = useSelector(
     (state) => state.viewSettings.audioDriverOuts
   )
@@ -59,22 +48,12 @@ export function Clip({ url, tracksId, clipId }) {
   } = tracks[tracksIdx].data[clipIdx]
   const waveformRef = useRef(null)
   const wavesurfer = useRef(null)
-  // const startTime = useRef(window.performance.now())
   const [playing, setPlay] = useState(isPlaying)
 
   useEffect(() => {
     const options = formWaveSurferOptions(waveformRef.current)
     wavesurfer.current = WaveSurfer.create(options)
-
     wavesurfer.current.load(url)
-
-    wavesurfer.current.on('ready', function () {
-      // make sure object stillavailable when file loaded
-      // if (wavesurfer.current) {
-      //wavesurfer.current.setVolume(volume)
-      // setIsLoading(false)
-      //  }
-    })
     wavesurfer.current.on('finish', () => {
       if (isLooping) {
         wavesurfer.current.playPause()
@@ -95,9 +74,6 @@ export function Clip({ url, tracksId, clipId }) {
   }, [audioDriverOutName])
 
   useEffect(() => {
-    // let playAlreadyStarted = false
-    // const ct = wavesurfer.current.backend.ac.currentTime
-    // const diff = (startTime.current - ct) / 1000 + 0.1
     if (isPlaying) {
       wavesurfer.current.play(
         audioContext.baseLatency + audioContext.currentTime
@@ -250,66 +226,24 @@ export function Clip({ url, tracksId, clipId }) {
 
   function handlePlayPause() {
     setPlay(!playing)
-    //dispatch(toggleIsPlaying({ tracksId, clipId, isPlaying: !isPlaying }))
     if (isPlaying) {
       dispatch(registerClip({ clip: { tracksId, clipId, isPlaying: false } }))
     } else {
       dispatch(registerClip({ clip: { tracksId, clipId, isPlaying: true } }))
     }
-    //wavesurfer.current.playPause()
   }
   function formWaveSurferOptions(ref) {
     return {
       container: ref,
       audioContext,
       closeAudioContext: false,
-      // splitChannels: true,
-      //waveColor: '#eee',
-      // progressColor: 'OrangeRed',
-      // cursorColor: 'OrangeRed',
       barWidth: 2,
       barRadius: 2,
       responsive: true,
       height: 80,
-      // If true, normalize by the maximum peak instead of 1.0.
       normalize: true,
-      // Use the PeakCache to improve rendering speed of large waveforms.
-      partialRender: true,
+      partialRender: true
       //backend: 'WebAudio',
-      plugins: [
-        // Cursor.create({
-        //   showTime: true,
-        //   opacity: 1,
-        //   customShowTimeStyle: {
-        //     'background-color': '#000',
-        //     color: '#fff',
-        //     padding: '2px',
-        //     'font-size': '10px'
-        //   }
-        // })
-        // Regions.create({
-        //   regionsMinLength: 1,
-        // loop: true,
-        //   // regions: [
-        //   //   {
-        //   //     start: 1,
-        //   //     end: 2,
-        //   //     loop: false,
-        //   //     color: 'hsla(400, 100%, 30%, 0.5)'
-        //   //   },
-        //   //   {
-        //   //     start: 3,
-        //   //     end: 4,
-        //   //     loop: false,
-        //   //     color: 'hsla(200, 50%, 70%, 0.4)',
-        //   //     minLength: 1
-        //   //   }
-        //   // ],
-        //   dragSelection: {
-        //     slop: 2
-        //   }
-        // })
-      ]
     }
   }
 
@@ -318,7 +252,6 @@ export function Clip({ url, tracksId, clipId }) {
 
     if (newVolume) {
       dispatch(changeClipVolume({ clipId, tracksId, volume: newVolume }))
-      //setVolume(newVolume)
       wavesurfer.current.setVolume(newVolume || 1)
     }
   }

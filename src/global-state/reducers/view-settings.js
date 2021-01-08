@@ -4,7 +4,7 @@ export const playbackStates = {
   STOP: 'STOP'
 }
 export const viewSettingsInitState = {
-  playbackState: playbackStates.STOP,
+  playbackState: null,
   currentTimeStamp: 0.0,
   bpm: 95,
   windowFrameInSteps: 16,

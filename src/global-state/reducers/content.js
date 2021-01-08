@@ -116,6 +116,13 @@ export const content = {
       }
     })
   },
+  stopAll(state) {
+    state.tracks.forEach((track, idx) => {
+      track.data.forEach((clip, clipIdx) => {
+        state.tracks[idx].data[clipIdx].isPlaying = false
+      })
+    })
+  },
   toggleIsScenePlaying(state, { payload: { sceneIdx } }) {
     state.tracks.forEach((track, idx) => {
       state.tracks[idx].data.forEach((clip, idxx) => {
