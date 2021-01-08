@@ -7,7 +7,7 @@ const {
 } = actionsContent
 const { changeCurrentScene, clearRegisteredClips } = actionsViewSettings
 
-export function initClock() {
+export function clock() {
   let timerWorker = null
 
   return function (dispatch, getState) {
@@ -16,7 +16,7 @@ export function initClock() {
     } = getState()
     // let timer = null
 
-    console.log('initClock with BPM: ', bpm, ' Steps: ', windowFrameInSteps)
+    console.log('clock with BPM: ', bpm, ' Steps: ', windowFrameInSteps)
 
     var timerWorkerBlob = new Blob([
       `var timeoutID=0;function schedule(){timeoutID=setTimeout(function(){postMessage('schedule'); schedule();},${

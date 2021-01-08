@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import { createSlice } from '@reduxjs/toolkit'
-import { viewSettings } from './reducers/view-settings'
+import { viewSettings, viewSettingsInitState } from './reducers/view-settings'
 import { content } from './reducers/content'
 
 //
@@ -25,23 +25,6 @@ export const PAGE_TYPES = {
   // VIEW_SETTINGS_MODE: 'VIEW_SETTINGS_MODE'
 }
 
-export const viewSettingsInitState = {
-  bpm: 95,
-  windowFrameInSteps: 8,
-  currentSceneIdx: null,
-  registeredClips: [],
-  audioDriverOuts: [],
-
-  electronAppSettings: {
-    isDevConsoleEnabled: true,
-    isAllowedToUpdate: false,
-    isAutoDownload: false,
-    isAllowedPrerelease: false,
-    isAllowedDowngrade: false,
-    //isWindowSizeLocked: true,
-    windowCoords: [0, 0, 600, 800]
-  }
-}
 const {
   reducer: reducerViewSettingss,
   actions: actionsViewSettingss

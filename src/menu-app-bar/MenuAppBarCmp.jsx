@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { makeStyles, useTheme } from '@material-ui/styles'
 import { useDispatch, useSelector } from 'react-redux'
@@ -8,13 +8,20 @@ import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
+import PlayIcon from '@material-ui/icons/PlayArrow'
+import StopIcon from '@material-ui/icons/Stop'
+import context from '../global-state/context'
 import { actionsViewSettings } from '../global-state'
+import { playbackStates } from '../global-state/reducers/view-settings'
+import { TimerClockLabel } from './TimerClockLabel'
+
 export const MenuAppBar = MenuAppBarCmp
 
-const { setBpm, setWindowFrameInSteps } = actionsViewSettings
+const { setBpm, setWindowFrameInSteps, setPlaybackState } = actionsViewSettings
 function MenuAppBarCmp(props) {
   const theme = useTheme()
   const dispatch = useDispatch()
+  const { audioContext } = useContext(context)
   const classes = makeStyles(styles.bind(this, theme))()
   const { bpm, windowFrameInSteps } = useSelector((state) => state.viewSettings)
   return (
@@ -33,6 +40,35 @@ function MenuAppBarCmp(props) {
           <Typography variant='h6' className={classes.typoColorStyle}>
             Cliptor
           </Typography>
+          <TimerClockLabel></TimerClockLabel>
+          <IconButton
+            aria-label='play'
+            onClick={() => {
+              dispatch(
+                setPlaybackState({
+                  playbackState: playbackStates.PLAY,
+                  currentTimeStamp: audioContext.currentTime
+                })
+              )
+              console.log('GLOBAL PLAY: ', audioContext.currentTime)
+            }}
+          >
+            <PlayIcon></PlayIcon>
+          </IconButton>
+          <IconButton
+            aria-label='stop'
+            onClick={() => {
+              dispatch(
+                setPlaybackState({
+                  playbackState: playbackStates.STOP,
+                  currentTimeStamp: audioContext.currentTime
+                })
+              )
+              console.log('GLOBAL STOP: ', audioContext.currentTime)
+            }}
+          >
+            <StopIcon></StopIcon>
+          </IconButton>
           <TextField
             label='BPM'
             type='number'

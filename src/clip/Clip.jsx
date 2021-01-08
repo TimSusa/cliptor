@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState, useContext } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 //import Typography from '@material-ui/core/Typography'
@@ -18,10 +18,9 @@ import Slider from '@material-ui/core/Slider'
 import { ButtonLoadAudioFile } from './ButtonLoadAudioFile'
 //import Regions from 'wavesurfer.js/dist/plugin/wavesurfer.regions.min.js'
 //import Cursor from 'wavesurfer.js/dist/plugin/wavesurfer.cursor.min.js'
-
 import { actionsContent, actionsViewSettings } from '../global-state'
-
 import { AudioDriverOutMenu } from './AudioDriverOutMenu'
+import context from '../global-state/context'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -35,6 +34,7 @@ const useStyles = makeStyles(() => ({
 }))
 export function Clip({ url, tracksId, clipId }) {
   const classes = useStyles()
+  const { audioContext } = useContext(context)
   const dispatch = useDispatch()
   const { registerClip } = actionsViewSettings
   const {
@@ -98,11 +98,14 @@ export function Clip({ url, tracksId, clipId }) {
     // let playAlreadyStarted = false
     // const ct = wavesurfer.current.backend.ac.currentTime
     // const diff = (startTime.current - ct) / 1000 + 0.1
-
     if (isPlaying) {
-      wavesurfer.current.play()
+      wavesurfer.current.play(
+        audioContext.baseLatency + audioContext.currentTime
+      )
     } else {
-      wavesurfer.current.stop()
+      wavesurfer.current.stop(
+        audioContext.baseLatency + audioContext.currentTime
+      )
     }
   }, [isPlaying])
 
@@ -255,6 +258,60 @@ export function Clip({ url, tracksId, clipId }) {
     }
     //wavesurfer.current.playPause()
   }
+  function formWaveSurferOptions(ref) {
+    return {
+      container: ref,
+      audioContext,
+      closeAudioContext: false,
+      // splitChannels: true,
+      //waveColor: '#eee',
+      // progressColor: 'OrangeRed',
+      // cursorColor: 'OrangeRed',
+      barWidth: 2,
+      barRadius: 2,
+      responsive: true,
+      height: 80,
+      // If true, normalize by the maximum peak instead of 1.0.
+      normalize: true,
+      // Use the PeakCache to improve rendering speed of large waveforms.
+      partialRender: true,
+      //backend: 'WebAudio',
+      plugins: [
+        // Cursor.create({
+        //   showTime: true,
+        //   opacity: 1,
+        //   customShowTimeStyle: {
+        //     'background-color': '#000',
+        //     color: '#fff',
+        //     padding: '2px',
+        //     'font-size': '10px'
+        //   }
+        // })
+        // Regions.create({
+        //   regionsMinLength: 1,
+        // loop: true,
+        //   // regions: [
+        //   //   {
+        //   //     start: 1,
+        //   //     end: 2,
+        //   //     loop: false,
+        //   //     color: 'hsla(400, 100%, 30%, 0.5)'
+        //   //   },
+        //   //   {
+        //   //     start: 3,
+        //   //     end: 4,
+        //   //     loop: false,
+        //   //     color: 'hsla(200, 50%, 70%, 0.4)',
+        //   //     minLength: 1
+        //   //   }
+        //   // ],
+        //   dragSelection: {
+        //     slop: 2
+        //   }
+        // })
+      ]
+    }
+  }
 
   function onVolumeChange(e, value) {
     const newVolume = +value
@@ -272,58 +329,4 @@ Clip.propTypes = {
   clipId: PropTypes.any,
   tracksId: PropTypes.any,
   url: PropTypes.string
-}
-
-function formWaveSurferOptions(ref) {
-  return {
-    container: ref,
-    closeAudioContext: false,
-    // splitChannels: true,
-    //waveColor: '#eee',
-    // progressColor: 'OrangeRed',
-    // cursorColor: 'OrangeRed',
-    barWidth: 2,
-    barRadius: 2,
-    responsive: true,
-    height: 80,
-    // If true, normalize by the maximum peak instead of 1.0.
-    normalize: true,
-    // Use the PeakCache to improve rendering speed of large waveforms.
-    partialRender: true,
-    //backend: 'WebAudio',
-    plugins: [
-      // Cursor.create({
-      //   showTime: true,
-      //   opacity: 1,
-      //   customShowTimeStyle: {
-      //     'background-color': '#000',
-      //     color: '#fff',
-      //     padding: '2px',
-      //     'font-size': '10px'
-      //   }
-      // })
-      // Regions.create({
-      //   regionsMinLength: 1,
-      // loop: true,
-      //   // regions: [
-      //   //   {
-      //   //     start: 1,
-      //   //     end: 2,
-      //   //     loop: false,
-      //   //     color: 'hsla(400, 100%, 30%, 0.5)'
-      //   //   },
-      //   //   {
-      //   //     start: 3,
-      //   //     end: 4,
-      //   //     loop: false,
-      //   //     color: 'hsla(200, 50%, 70%, 0.4)',
-      //   //     minLength: 1
-      //   //   }
-      //   // ],
-      //   dragSelection: {
-      //     slop: 2
-      //   }
-      // })
-    ]
-  }
 }

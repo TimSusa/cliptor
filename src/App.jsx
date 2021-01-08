@@ -7,7 +7,7 @@ import MenuAppBar from './menu-app-bar/MenuAppBar'
 import Drawer from '@material-ui/core/Drawer'
 import DrawerList from './drawer-list/DrawerList'
 
-import { initClock } from './global-state/thunks/clock'
+import { clock } from './global-state/thunks/clock'
 
 export function App() {
   const dispatch = useDispatch()
@@ -15,7 +15,7 @@ export function App() {
   const classes = makeStyles(styles.bind(this, theme))()
   const [isMobileOpen, setIsMobileOpen] = useState(false)
   useEffect(() => {
-    dispatch(initClock())
+    dispatch(clock())
   }, [])
   return (
     <div className={classes.root}>
