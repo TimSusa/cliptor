@@ -49,6 +49,10 @@ https://cliptor.timsusa.vercel.app/
   <img width="100%" src="./docs/screenshot.png">
 </p>
 
+# For Developers
+
+Below you will find a step by step guide to set up local develpment environment. Feel free to contribute to this project.
+
 ## Installation
 
 At first copy the .env.sample to .env, if you have none.
