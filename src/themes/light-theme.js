@@ -24,6 +24,9 @@ export const lightTheme = {
       }
     },
     MuiListItem: {
+      root: {
+        justifyContent: 'center'
+      },
       gutters: {
         paddingLeft: 2,
         paddingRight: 2

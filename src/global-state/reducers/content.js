@@ -14,7 +14,7 @@ export const content = {
           blob: null,
           volume: 0.66,
           isLooping: true,
-          ism4aeformShown: true,
+          isWaveformShown: true,
           isPlaying: false,
           audioDriverOutName: null
         }

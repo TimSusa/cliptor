@@ -38,7 +38,8 @@ export function Matrix() {
             return (
               <ListItem
                 style={{
-                  height: 219
+                  height: 191,
+                  width: 56
                 }}
                 key={`scene-${clipIdx}`}
               >
@@ -90,8 +91,8 @@ export function Matrix() {
           <List
             key={track.id}
             style={{
-              width: `calc(100vw / ${tracks.length + 1}`,
-              minHeight: 'calc(100vh'
+              width: `calc(96vw/${tracks.length})`,
+              minHeight: 'calc(100vh - 64px)'
             }}
           >
             {(track.data || []).map(({ id, src, blob }) => (
