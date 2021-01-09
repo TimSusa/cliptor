@@ -6,7 +6,7 @@ export function TimerClockLabel() {
   const { audioContext } = useContext(context)
   const [time, setTime] = useState('')
   useRaf(() => setTime(audioContext.currentTime))
-  return <div>{msToTime(time * 1000)}</div>
+  return <div style={{ lineHeight: 3.5 }}>{msToTime(time * 1000)}</div>
 }
 
 function msToTime(duration) {

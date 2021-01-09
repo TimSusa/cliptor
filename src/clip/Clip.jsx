@@ -10,6 +10,7 @@ import PauseIcon from '@material-ui/icons/Pause'
 import FastForwardIcon from '@material-ui/icons/FastForward'
 import FastRewindIcon from '@material-ui/icons/FastRewind'
 import SaveIcon from '@material-ui/icons/Save'
+import CloseIcon from '@material-ui/icons/Close'
 import WaveSurfer from 'wavesurfer.js'
 import Slider from '@material-ui/core/Slider'
 import { ButtonLoadAudioFile } from './ButtonLoadAudioFile'
@@ -33,7 +34,12 @@ export function Clip({ url, tracksId, clipId }) {
   const { audioContext } = useContext(context)
   const dispatch = useDispatch()
   const { registerClip } = actionsViewSettings
-  const { changeClipSrc, changeClipVolume, toggleIsLooping } = actionsContent
+  const {
+    changeClipSrc,
+    changeClipVolume,
+    toggleIsLooping,
+    removeClip
+  } = actionsContent
   const { audioDriverOuts } = useSelector((state) => state.viewSettings)
 
   const tracks = useSelector((state) => state.content.tracks)
@@ -129,16 +135,32 @@ export function Clip({ url, tracksId, clipId }) {
         e.preventDefault()
       }}
     >
-      <div style={{ whiteSpace: 'nowrap', overflow: 'hidden' }}>
-        {url.substr(url.length - 35)}
-      </div>
-
       <div
         style={{
           width: '100%',
           display: 'flex',
           flexDirection: 'row',
-          justifyContent: 'space-evenly'
+          justifyContent: 'space-between'
+        }}
+      >
+        <div style={{ whiteSpace: 'nowrap', overflow: 'hidden' }}>
+          {url.substr(url.length - 35)}
+        </div>
+        <IconButton
+          onClick={() => {
+            dispatch(removeClip({ tracksId, clipId }))
+          }}
+        >
+          <CloseIcon style={{ width: 16 }}></CloseIcon>
+        </IconButton>
+      </div>
+      <div
+        style={{
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-evenly',
+          overflowX: 'hidden'
         }}
       >
         <IconButton onClick={handlePlayPause} aria-label='play'>

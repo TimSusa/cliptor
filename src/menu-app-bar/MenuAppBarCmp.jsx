@@ -47,7 +47,7 @@ function MenuAppBarCmp(props) {
           {process.env.REACT_APP_IS_WEB_MODE === 'true' && (
             <React.Fragment>
               <Typography className={classes.typoColorStyle}>
-                WEB-DEMO:
+                ++ WEB-DEMO ++
               </Typography>
               <a
                 className={classes.typoColorStyle}
@@ -57,56 +57,65 @@ function MenuAppBarCmp(props) {
               </a>
             </React.Fragment>
           )}
-          <TimerClockLabel></TimerClockLabel>
 
-          <IconButton
-            aria-label='stop'
-            onClick={() => {
-              dispatch(stopAll())
-              dispatch(
-                setPlaybackState({
-                  playbackState: playbackStates.STOP,
-                  currentTimeStamp: audioContext.currentTime
-                })
-              )
+          <div
+            style={{
+              display: 'flex',
+              width: '20%',
+              justifyContent: 'space-around'
             }}
           >
-            <StopIcon></StopIcon>
-          </IconButton>
-          <TextField
-            label='BPM'
-            type='number'
-            inputProps={{
-              min: 1,
-              max: 200
-            }}
-            InputLabelProps={{
-              shrink: true
-            }}
-            variant='standard'
-            defaultValue={bpm}
-            onChange={(e) => {
-              dispatch(setBpm({ bpm: e.target.event }))
-            }}
-          />
-          <TextField
-            label='StepTick'
-            type='number'
-            inputProps={{
-              min: 1,
-              max: 32
-            }}
-            InputLabelProps={{
-              shrink: true
-            }}
-            variant='standard'
-            defaultValue={windowFrameInSteps}
-            onChange={(e) => {
-              dispatch(
-                setWindowFrameInSteps({ windowFrameInSteps: e.target.event })
-              )
-            }}
-          />
+            <TextField
+              label='BPM'
+              type='number'
+              inputProps={{
+                min: 1,
+                max: 200
+              }}
+              InputLabelProps={{
+                shrink: true
+              }}
+              variant='standard'
+              defaultValue={bpm}
+              onChange={(e) => {
+                dispatch(setBpm({ bpm: e.target.event }))
+              }}
+            />
+            <TextField
+              label='StepTick'
+              type='number'
+              inputProps={{
+                min: 1,
+                max: 32
+              }}
+              InputLabelProps={{
+                shrink: true
+              }}
+              variant='standard'
+              defaultValue={windowFrameInSteps}
+              onChange={(e) => {
+                dispatch(
+                  setWindowFrameInSteps({ windowFrameInSteps: e.target.event })
+                )
+              }}
+            />
+            <TimerClockLabel></TimerClockLabel>
+
+            <IconButton
+              aria-label='stop'
+              onClick={() => {
+                dispatch(stopAll())
+                dispatch(
+                  setPlaybackState({
+                    playbackState: playbackStates.STOP,
+                    currentTimeStamp: audioContext.currentTime
+                  })
+                )
+              }}
+            >
+              <StopIcon></StopIcon>
+            </IconButton>
+          </div>
         </Toolbar>
       </AppBar>
       <div

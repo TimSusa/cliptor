@@ -41,6 +41,16 @@ export const content = {
       ]
     }
   },
+  removeClip(state, { payload: { tracksId, clipId } }) {
+    const tracksIdx = state.tracks.findIndex((item) => item.id === tracksId)
+    const clipIdx = state.tracks[tracksIdx].data.findIndex(
+      (item) => item.id === clipId
+    )
+    state.tracks[tracksIdx].data.splice(clipIdx, 1)
+    if (state.tracks[tracksIdx].data.length === 0) {
+      state.tracks.splice(tracksIdx, 1)
+    }
+  },
   changeClipSrc(state, { payload: { tracksId, clipId, src } }) {
     const tracksIdx = state.tracks.findIndex((item) => item.id === tracksId)
     const clipIdx = state.tracks[tracksIdx].data.findIndex(
