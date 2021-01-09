@@ -24,6 +24,7 @@ export function Matrix() {
   const tracks = useSelector((state) => state.content.tracks || [])
   useEffect(() => {
     dispatch(initDrivers())
+    //eslint-disable-next-line
   }, [])
   useEffect(() => {
     dispatch(setContent({ content: content.content }))

@@ -15,6 +15,7 @@ export function App() {
   const theme = useTheme()
   const classes = makeStyles(styles.bind(this, theme))()
   const [isMobileOpen, setIsMobileOpen] = useState(false)
+  /*eslint-disable*/
   useEffect(() => {
     if (isSafari()) {
       alert(
@@ -23,6 +24,7 @@ export function App() {
     }
     dispatch(clock())
   }, [])
+  /*eslint-enable*/
   return (
     <div className={classes.root}>
       <div className={classes.appBar}>

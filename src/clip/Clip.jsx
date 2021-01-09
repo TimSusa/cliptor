@@ -74,6 +74,7 @@ export function Clip({ url, tracksId, clipId }) {
     // Removes events, elements and disconnects Web Audio nodes.
     // when component unmount
     return () => wavesurfer.current.destroy()
+    //eslint-disable-next-line
   }, [url])
 
   useEffect(() => {
@@ -83,6 +84,7 @@ export function Clip({ url, tracksId, clipId }) {
       ).deviceId
       wavesurfer.current.setSinkId(sinkId)
     }
+    //eslint-disable-next-line
   }, [audioDriverOutName])
 
   useEffect(() => {
@@ -101,6 +103,7 @@ export function Clip({ url, tracksId, clipId }) {
           nrOfCycles.current * duration
       )
     }
+    //eslint-disable-next-line
   }, [isPlaying])
 
   return (

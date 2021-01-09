@@ -13,5 +13,6 @@ export const useRaf = (onFrame) => {
   React.useEffect(() => {
     requestRef.current = requestAnimationFrame(callback)
     return () => cancelAnimationFrame(requestRef.current)
+    //eslint-disable-next-line
   }, [])
 }
