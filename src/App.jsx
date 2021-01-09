@@ -8,6 +8,7 @@ import Drawer from '@material-ui/core/Drawer'
 import DrawerList from './drawer-list/DrawerList'
 
 import { clock } from './global-state/thunks/clock'
+import { isSafari } from './utils/is-safari'
 
 export function App() {
   const dispatch = useDispatch()
@@ -15,6 +16,11 @@ export function App() {
   const classes = makeStyles(styles.bind(this, theme))()
   const [isMobileOpen, setIsMobileOpen] = useState(false)
   useEffect(() => {
+    if (isSafari()) {
+      alert(
+        'iOS / Safari not supported by Cliptor! Please, consider using a desktop machine with macOSX, win or raspberryPI.'
+      )
+    }
     dispatch(clock())
   }, [])
   return (
