@@ -28,6 +28,7 @@ const useStyles = makeStyles(() => ({
   }
 }))
 export function Clip({ url, tracksId, clipId }) {
+  console.log('component rendered ', clipId)
   const classes = useStyles()
   const { audioContext } = useContext(context)
   const dispatch = useDispatch()
@@ -56,7 +57,7 @@ export function Clip({ url, tracksId, clipId }) {
     wavesurfer.current.load(url)
     wavesurfer.current.on('finish', () => {
       if (isLooping) {
-        wavesurfer.current.playPause()
+        wavesurfer.current.play()
       }
     })
     // Removes events, elements and disconnects Web Audio nodes.
@@ -75,13 +76,11 @@ export function Clip({ url, tracksId, clipId }) {
 
   useEffect(() => {
     if (isPlaying) {
-      wavesurfer.current.play(
-        audioContext.baseLatency + audioContext.currentTime
-      )
+      dispatch(toggleIsLooping({ tracksId, clipId, isLooping: false }))
+      wavesurfer.current.play(audioContext.currentTime)
+      dispatch(toggleIsLooping({ tracksId, clipId, isLooping: true }))
     } else {
-      wavesurfer.current.stop(
-        audioContext.baseLatency + audioContext.currentTime
-      )
+      wavesurfer.current.stop(audioContext.currentTime)
     }
   }, [isPlaying])
 

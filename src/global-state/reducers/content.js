@@ -109,6 +109,7 @@ export const content = {
     )
     state.tracks[tracksIdx].data[clipIdx].isWaveformShown = isWaveformShown
   },
+  // deprecated
   stopIsScenePlaying(state, { payload: { sceneIdx } }) {
     state.tracks.forEach((track, idx) => {
       if (track.data[sceneIdx]) {
@@ -123,6 +124,7 @@ export const content = {
       })
     })
   },
+  // deprecated
   toggleIsScenePlaying(state, { payload: { sceneIdx } }) {
     state.tracks.forEach((track, idx) => {
       state.tracks[idx].data.forEach((clip, idxx) => {

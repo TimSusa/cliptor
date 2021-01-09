@@ -6,8 +6,8 @@ export const playbackStates = {
 export const viewSettingsInitState = {
   playbackState: null,
   currentTimeStamp: 0.0,
-  bpm: 95,
-  windowFrameInSteps: 16,
+  bpm: 120,
+  windowFrameInSteps: 1,
   currentSceneIdx: null,
   registeredClips: [],
   audioDriverOuts: [],
@@ -41,6 +41,9 @@ export const viewSettings = {
     if (state.registeredClips.every((item) => item.clipId !== clip.clipId)) {
       state.registeredClips = [...state.registeredClips, clip]
     }
+  },
+  registerClips(state, { payload: { clips } }) {
+    state.registeredClips = [...state.registeredClips, ...clips]
   },
   clearRegisteredClips(state) {
     state.registeredClips = []

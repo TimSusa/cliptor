@@ -11,18 +11,13 @@ import PlaySceneIcon from '@material-ui/icons/PlayCircleOutline'
 import StopSceneIcon from '@material-ui/icons/Stop'
 import AddClipIcon from '@material-ui/icons/Add'
 
-import { content } from '../utils/example'
+import { content } from '../utils/example_120bpm'
 import { initDrivers } from '../global-state/thunks/drivers'
 import { actionsContent, actionsViewSettings } from '../global-state'
 
 export function Matrix() {
-  const {
-    setContent,
-    addTrack,
-    addClipToTrack,
-    stopIsScenePlaying
-  } = actionsContent
-  const { changeCurrentScene } = actionsViewSettings
+  const { setContent, addTrack, addClipToTrack } = actionsContent
+  const { registerClips, clearRegisteredClips } = actionsViewSettings
   const theme = useTheme()
   const dispatch = useDispatch()
   const classes = makeStyles(styles.bind(this, theme))()
@@ -38,19 +33,20 @@ export function Matrix() {
     <div className={classes.root}>
       <List>
         {tracks.length > 0 &&
-          tracks[0].data.map((clip, clipIdd) => {
+          tracks[0].data.map((clip, clipIdx) => {
             return (
               <ListItem
                 style={{
                   height: 219
                 }}
-                key={`scene-${clipIdd}`}
+                key={`scene-${clipIdx}`}
               >
-                {tracks.every((track) => track.data[clipIdd].isPlaying) ? (
+                {tracks.every((track) => track.data[clipIdx].isPlaying) ? (
                   <IconButton
                     aria-label='stop-scene'
                     onClick={() => {
-                      dispatch(stopIsScenePlaying({ sceneIdx: clipIdd }))
+                      dispatch(clearRegisteredClips())
+                      // dispatch(stopIsScenePlaying({ sceneIdx: clipIdx }))
                     }}
                   >
                     <StopSceneIcon></StopSceneIcon>
@@ -59,7 +55,19 @@ export function Matrix() {
                   <IconButton
                     aria-label='play-scene'
                     onClick={() => {
-                      dispatch(changeCurrentScene({ currentSceneIdx: clipIdd }))
+                      console.log('play scene: ', clipIdx)
+                      const clips = tracks.map((track) => {
+                        return {
+                          tracksId: track.id,
+                          clipId: track.data[clipIdx].id,
+                          isPlaying: true
+                        }
+                      })
+                      console.log('register clips from ', clips)
+                      dispatch(registerClips({ clips }))
+                      // TODO: convert to register clips
+                      // dispatch(changeCurrentScene({ currentSceneIdx: clipIdx }))
+                      //registerClips
                     }}
                   >
                     <PlaySceneIcon></PlaySceneIcon>

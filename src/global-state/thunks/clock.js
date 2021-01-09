@@ -1,6 +1,6 @@
 import { actionsContent, actionsViewSettings } from '../'
-const { toggleIsScenePlaying, toggleIsPlayingList } = actionsContent
-const { changeCurrentScene, clearRegisteredClips } = actionsViewSettings
+const { toggleIsPlayingList } = actionsContent
+const { clearRegisteredClips } = actionsViewSettings
 
 export function clock() {
   let timerWorker = null
@@ -20,19 +20,21 @@ export function clock() {
     var timerWorkerBlobURL = window.URL.createObjectURL(timerWorkerBlob)
 
     timerWorker = new Worker(timerWorkerBlobURL)
-    timerWorker.onmessage = tick
+    timerWorker.onmessage = nextTick
 
     timerWorker.postMessage('init') // Start the worker.
     timerWorker.postMessage('start')
 
-    function tick() {
+    function nextTick() {
       const {
-        viewSettings: { currentSceneIdx, registeredClips }
+        viewSettings: { registeredClips }
       } = getState()
-      if (currentSceneIdx !== null) {
-        dispatch(toggleIsScenePlaying({ sceneIdx: currentSceneIdx }))
-        dispatch(changeCurrentScene({ currentSceneIdx: null }))
-      }
+      //console.log('tick: ', evt.timeStamp)
+
+      // if (currentSceneIdx !== null) {
+      //   dispatch(toggleIsScenePlaying({ sceneIdx: currentSceneIdx }))
+      //   dispatch(changeCurrentScene({ currentSceneIdx: null }))
+      // }
       if (registeredClips.length > 0) {
         dispatch(toggleIsPlayingList({ clips: registeredClips }))
         dispatch(clearRegisteredClips())
