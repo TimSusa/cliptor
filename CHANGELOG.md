@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.15](https://github.com/TimSusa/cliptor/compare/v0.0.14...v0.0.15) (2021-01-09)
+
+
+### Features
+
+* Center UI Elements and use maximal space ([ba61b61](https://github.com/TimSusa/cliptor/commit/ba61b61826828181052a0caf7c79df90eff4e2ba))
+* Establish removing clips and beautify UI further ([66b3540](https://github.com/TimSusa/cliptor/commit/66b35406c8ba2dd621fefbcc902017c30e197aff))
+* Spit out warning on ios and safari ([03c6838](https://github.com/TimSusa/cliptor/commit/03c6838c8cff0a5150ea0fbefe019b23d4a428ec))
+
+
+### Bug Fixes
+
+* Crash on safari ([a7d915e](https://github.com/TimSusa/cliptor/commit/a7d915e5181c9d71d71ed6dd4a6dbdafc3c395b9))
+* Menu Bar Control Width ([0642ef4](https://github.com/TimSusa/cliptor/commit/0642ef4e6864f1048ba35a2398105a196eb822fd))
+
 ### [0.0.14](https://github.com/TimSusa/cliptor/compare/v0.0.13...v0.0.14) (2021-01-09)
 
 
