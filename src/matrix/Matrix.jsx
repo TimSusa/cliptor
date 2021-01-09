@@ -91,7 +91,7 @@ export function Matrix() {
           <List
             key={track.id}
             style={{
-              width: `calc(96vw/${tracks.length})`,
+              width: `calc(93vw  /${tracks.length})`,
               minHeight: 'calc(100vh - 64px)'
             }}
           >

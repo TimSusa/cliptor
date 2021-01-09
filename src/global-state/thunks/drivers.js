@@ -1,5 +1,6 @@
 import { actionsViewSettings } from '../'
 import cloneDeep from 'lodash/cloneDeep'
+import { isSafari } from '../../utils/is-safari'
 
 const { setAudioDriverOuts } = actionsViewSettings
 
@@ -24,7 +25,10 @@ export function initDrivers() {
 async function scanForAudioDrivers() {
   let list = []
   return new Promise((resolve, reject) => {
-    navigator.mediaDevices.getUserMedia(
+    if (isSafari()) {
+      resolve([])
+    }
+    navigator.getUserMedia(
       { audio: true, video: false },
       async function () {
         list = await refreshDeviceList(list)

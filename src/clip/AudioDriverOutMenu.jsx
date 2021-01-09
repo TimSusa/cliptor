@@ -12,10 +12,10 @@ const { setAudioDriverOutName } = actionsContent
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 120
+    width: '95%'
   },
   selectEmpty: {
-    marginTop: theme.spacing(2)
+    marginTop: theme.spacing(1)
   }
 }))
 
