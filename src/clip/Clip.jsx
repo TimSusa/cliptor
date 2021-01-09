@@ -16,6 +16,7 @@ import { ButtonLoadAudioFile } from './ButtonLoadAudioFile'
 import { actionsContent, actionsViewSettings } from '../global-state'
 import { AudioDriverOutMenu } from './AudioDriverOutMenu'
 import context from '../global-state/context'
+import { isSafari } from '../utils/is-safari'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -269,6 +270,9 @@ export function Clip({ url, tracksId, clipId }) {
     return {
       container: ref,
       audioContext,
+      audioScriptProcessor: isSafari()
+        ? audioContext.createScriptProcessor(1024, 1, 1)
+        : null,
       closeAudioContext: false,
       barWidth: 2,
       barRadius: 2,

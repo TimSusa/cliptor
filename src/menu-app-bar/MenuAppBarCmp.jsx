@@ -53,7 +53,7 @@ function MenuAppBarCmp(props) {
                 className={classes.typoColorStyle}
                 href={'https://github.com/TimSusa/cliptor/releases'}
               >
-                Download here!
+                Download Desktop App here!
               </a>
             </React.Fragment>
           )}
