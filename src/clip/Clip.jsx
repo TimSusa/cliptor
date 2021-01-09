@@ -48,6 +48,7 @@ export function Clip({ url, tracksId, clipId }) {
   } = track.data[clipIdx]
   const waveformRef = useRef(null)
   const wavesurfer = useRef(null)
+  const playWasCalled = useRef(false)
   const nrOfCycles = useRef(0)
   const [playing, setPlay] = useState(isPlaying)
 
@@ -91,7 +92,8 @@ export function Clip({ url, tracksId, clipId }) {
           audioContext.baseLatency -
           nrOfCycles.current * duration
       )
-    } else {
+      playWasCalled.current = true
+    } else if (playWasCalled.current) {
       wavesurfer.current.stop(
         audioContext.currentTime +
           audioContext.baseLatency -
