@@ -29,7 +29,7 @@ Note: You better install the app on your OS to have all features available.
 
 NOTE: Due to a lack of support from Apple, Safari and every Browser on iOS Devices is NOT supported.
 
-Furthermore, consider downloading and installing the actual release on your machine, because features like drag and drop of audiofiles and saving to a preset are supported here. The Webdemo is just only for supposed to be a light show case.
+Furthermore, consider downloading and installing the actual release on your machine, because features like drag and drop of audiofiles and saving to a preset are supported here. The Webdemo is just only supposed to be a light show case.
 
 ## Download and Install
 
