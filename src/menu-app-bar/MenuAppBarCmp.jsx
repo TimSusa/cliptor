@@ -53,7 +53,7 @@ function MenuAppBarCmp(props) {
                 className={classes.typoColorStyle}
                 href={'https://github.com/TimSusa/cliptor/releases'}
               >
-                App Download here!
+                Download here!
               </a>
             </React.Fragment>
           )}
@@ -61,7 +61,7 @@ function MenuAppBarCmp(props) {
           <div
             style={{
               display: 'flex',
-              width: '20%',
+              width: '38%',
               justifyContent: 'space-around'
             }}
           >
