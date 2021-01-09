@@ -81,7 +81,6 @@ export default function FileInput(props) {
   }
 
   function triggerInput() {
-    console.log('trigger input')
     // eslint-disable-next-line react/no-find-dom-node
     //const input = ReactDOM.findDOMNode(_reactFileReaderInput)
     if (_reactFileReaderInput.current) {

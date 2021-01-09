@@ -67,7 +67,6 @@ function DrawerListCmp(props) {
     </React.Fragment>
   )
   function exportToFile() {
-    console.log('exportToFilefile', contentAll)
     const a = document.createElement('a')
     a.href = URL.createObjectURL(
       new Blob([JSON.stringify(contentAll, null, 2)], {
@@ -80,7 +79,6 @@ function DrawerListCmp(props) {
     document.body.removeChild(a)
   }
   async function handleFileChange(content) {
-    console.log('content from file', content)
     //await dispatch(thunkLoadFile(content.content, content.presetName))
     dispatch(setContent({ content: content.content.content }))
     onFileChange(content.content, content.presetName)

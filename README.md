@@ -4,7 +4,8 @@
 
 # Cliptor
 
-This app is supposed to just start a couple of samples via buttons. For example you could add, start and stop a sample "hooray" and a sample "applause" or even start whole tracks. However, start the app, add your clips, drag and drop your files to the clips and you can start mixing and looping.
+Cliptor is a browser based application, which makes heavily use of the latest WebAudioAPI features. The basic idea is, to have a light-weight sampler application containing a clip-matrix in the manner of ableton live.
+This app is supposed to start samples via buttons synchronized to a given BPM. For example you could add, start and stop a sample "hooray" and a sample "applause" or even start whole tracks. However, start the app, add your clips, drag and drop your files to the clips and you can start mixing and looping.
 
 Note: You better install the app on your OS to have all features available.
 
@@ -14,11 +15,21 @@ Note: You better install the app on your OS to have all features available.
 - Drag and Drop your sample file easily to your clips for every track
 - Cliptor reads all common sound files like mp3, wav, ogg or flac
 - Start, Stop and Pause your clips synchronized to the given BPM
+- Latency-Compensation included, so every sample is synchronized and scheduled to the given BPM
 - Have different Audio-Driver Output for every clip available
 - Change volume for each clip
 - Seek forward or backward during playback ( yes you can do kind of DJing with Cliptor)
 - Start scenes, similar to ableton live
 - Load from or save your current settings to a preset file
+
+## Operation System Support
+
+- Desktop Installer: Win, MacOSX and RaspberryPi4 (https://github.com/TimSusa/cliptor/releases)
+- Web-Demo: Win, MacOSX, RaspberryPi4 and Android Mobile Devices (https://cliptor.timsusa.vercel.app/)
+
+NOTE: Due to a lack of support from Apple, Safari and every Browser on iOS Devices is NOT supported.
+
+Furthermore, consider downloading and installing the actual release on your machine, because features like drag and drop of audiofiles and saving to a preset are supported here. The Webdemo is just only for supposed to be a light show case.
 
 ## Download and Install
 

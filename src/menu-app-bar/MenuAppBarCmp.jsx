@@ -47,13 +47,13 @@ function MenuAppBarCmp(props) {
           {process.env.REACT_APP_IS_WEB_MODE === 'true' && (
             <React.Fragment>
               <Typography className={classes.typoColorStyle}>
-                This is a WEB -DEMO:
+                WEB-DEMO:
               </Typography>
               <a
                 className={classes.typoColorStyle}
                 href={'https://github.com/TimSusa/cliptor/releases'}
               >
-                Download Desktop App here!
+                App Download here!
               </a>
             </React.Fragment>
           )}
@@ -69,7 +69,6 @@ function MenuAppBarCmp(props) {
                   currentTimeStamp: audioContext.currentTime
                 })
               )
-              console.log('GLOBAL STOP: ', audioContext.currentTime)
             }}
           >
             <StopIcon></StopIcon>
