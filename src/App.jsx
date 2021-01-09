@@ -19,7 +19,7 @@ export function App() {
   useEffect(() => {
     if (isSafari()) {
       alert(
-        'iOS / Safari not supported by Cliptor! Please, consider using a desktop machine with macOSX, win or raspberryPI.'
+        'Dear User, \n\nSafari and iOS Browsers are not supported. Please, consider using Android or a macOSX, win or raspberryPI hardware.'
       )
     }
     dispatch(clock())
