@@ -28,27 +28,27 @@ const useStyles = makeStyles(() => ({
   }
 }))
 export function Clip({ url, tracksId, clipId }) {
-  console.log('component rendered ', clipId)
   const classes = useStyles()
   const { audioContext } = useContext(context)
   const dispatch = useDispatch()
   const { registerClip } = actionsViewSettings
   const { changeClipSrc, changeClipVolume, toggleIsLooping } = actionsContent
-  const audioDriverOuts = useSelector(
-    (state) => state.viewSettings.audioDriverOuts
-  )
+  const { audioDriverOuts } = useSelector((state) => state.viewSettings)
+
   const tracks = useSelector((state) => state.content.tracks)
   const tracksIdx = tracks.findIndex((item) => item.id === tracksId)
   const clipIdx = tracks[tracksIdx].data.findIndex((item) => item.id === clipId)
+  const track = tracks[tracksIdx]
   const {
     isPlaying,
     isLooping,
     isWaveformShown,
     volume,
     audioDriverOutName
-  } = tracks[tracksIdx].data[clipIdx]
+  } = track.data[clipIdx]
   const waveformRef = useRef(null)
   const wavesurfer = useRef(null)
+  const nrOfCycles = useRef(0)
   const [playing, setPlay] = useState(isPlaying)
 
   useEffect(() => {
@@ -56,8 +56,17 @@ export function Clip({ url, tracksId, clipId }) {
     wavesurfer.current = WaveSurfer.create(options)
     wavesurfer.current.load(url)
     wavesurfer.current.on('finish', () => {
+      const duration = wavesurfer.current.getDuration()
+      nrOfCycles.current++
+
+      const tmp =
+        audioContext.currentTime +
+        audioContext.baseLatency -
+        nrOfCycles.current * duration
       if (isLooping) {
-        wavesurfer.current.play()
+        wavesurfer.current.play(tmp >= 0 ? tmp : 0)
+      } else {
+        wavesurfer.current.stop(tmp >= 0 ? tmp : 0)
       }
     })
     // Removes events, elements and disconnects Web Audio nodes.
@@ -75,12 +84,19 @@ export function Clip({ url, tracksId, clipId }) {
   }, [audioDriverOutName])
 
   useEffect(() => {
+    const duration = wavesurfer.current.getDuration()
     if (isPlaying) {
-      dispatch(toggleIsLooping({ tracksId, clipId, isLooping: false }))
-      wavesurfer.current.play(audioContext.currentTime)
-      dispatch(toggleIsLooping({ tracksId, clipId, isLooping: true }))
+      wavesurfer.current.play(
+        audioContext.currentTime +
+          audioContext.baseLatency -
+          nrOfCycles.current * duration
+      )
     } else {
-      wavesurfer.current.stop(audioContext.currentTime)
+      wavesurfer.current.stop(
+        audioContext.currentTime +
+          audioContext.baseLatency -
+          nrOfCycles.current * duration
+      )
     }
   }, [isPlaying])
 
@@ -226,9 +242,25 @@ export function Clip({ url, tracksId, clipId }) {
   function handlePlayPause() {
     setPlay(!playing)
     if (isPlaying) {
-      dispatch(registerClip({ clip: { tracksId, clipId, isPlaying: false } }))
+      dispatch(
+        registerClip({
+          clip: {
+            tracksId,
+            clipId,
+            isPlaying: false
+          }
+        })
+      )
     } else {
-      dispatch(registerClip({ clip: { tracksId, clipId, isPlaying: true } }))
+      dispatch(
+        registerClip({
+          clip: {
+            tracksId,
+            clipId,
+            isPlaying: true
+          }
+        })
+      )
     }
   }
   function formWaveSurferOptions(ref) {

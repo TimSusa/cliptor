@@ -29,12 +29,7 @@ export function clock() {
       const {
         viewSettings: { registeredClips }
       } = getState()
-      //console.log('tick: ', evt.timeStamp)
 
-      // if (currentSceneIdx !== null) {
-      //   dispatch(toggleIsScenePlaying({ sceneIdx: currentSceneIdx }))
-      //   dispatch(changeCurrentScene({ currentSceneIdx: null }))
-      // }
       if (registeredClips.length > 0) {
         dispatch(toggleIsPlayingList({ clips: registeredClips }))
         dispatch(clearRegisteredClips())

@@ -10,8 +10,7 @@ import { content } from './reducers/content'
 const { reducer: reducerContent, actions: actionsContents } = createSlice({
   name: 'content',
   initialState: {
-    tracks: [],
-    sceneIdx: null
+    tracks: []
   },
   reducers: content
 })

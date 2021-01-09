@@ -17,7 +17,7 @@ import { actionsContent, actionsViewSettings } from '../global-state'
 
 export function Matrix() {
   const { setContent, addTrack, addClipToTrack } = actionsContent
-  const { registerClips, clearRegisteredClips } = actionsViewSettings
+  const { registerClips } = actionsViewSettings
   const theme = useTheme()
   const dispatch = useDispatch()
   const classes = makeStyles(styles.bind(this, theme))()
@@ -45,8 +45,14 @@ export function Matrix() {
                   <IconButton
                     aria-label='stop-scene'
                     onClick={() => {
-                      dispatch(clearRegisteredClips())
-                      // dispatch(stopIsScenePlaying({ sceneIdx: clipIdx }))
+                      const clips = tracks.map((track) => {
+                        return {
+                          tracksId: track.id,
+                          clipId: track.data[clipIdx].id,
+                          isPlaying: false
+                        }
+                      })
+                      dispatch(registerClips({ clips }))
                     }}
                   >
                     <StopSceneIcon></StopSceneIcon>
@@ -55,7 +61,6 @@ export function Matrix() {
                   <IconButton
                     aria-label='play-scene'
                     onClick={() => {
-                      console.log('play scene: ', clipIdx)
                       const clips = tracks.map((track) => {
                         return {
                           tracksId: track.id,
@@ -63,11 +68,7 @@ export function Matrix() {
                           isPlaying: true
                         }
                       })
-                      console.log('register clips from ', clips)
                       dispatch(registerClips({ clips }))
-                      // TODO: convert to register clips
-                      // dispatch(changeCurrentScene({ currentSceneIdx: clipIdx }))
-                      //registerClips
                     }}
                   >
                     <PlaySceneIcon></PlaySceneIcon>

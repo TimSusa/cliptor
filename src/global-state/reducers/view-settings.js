@@ -5,10 +5,8 @@ export const playbackStates = {
 }
 export const viewSettingsInitState = {
   playbackState: null,
-  currentTimeStamp: 0.0,
   bpm: 120,
   windowFrameInSteps: 1,
-  currentSceneIdx: null,
   registeredClips: [],
   audioDriverOuts: [],
 
@@ -28,14 +26,12 @@ export const viewSettings = {
     state.playbackState = playbackState
     state.currentTimeStamp = currentTimeStamp
   },
+
   setBpm(state, { payload: { bpm } }) {
     state.bpm = bpm
   },
   setWindowFrameInSteps(state, { payload: { windowFrameInSteps } }) {
     state.windowFrameInSteps = windowFrameInSteps
-  },
-  changeCurrentScene(state, { payload: { currentSceneIdx } }) {
-    state.currentSceneIdx = currentSceneIdx
   },
   registerClip(state, { payload: { clip } }) {
     if (state.registeredClips.every((item) => item.clipId !== clip.clipId)) {

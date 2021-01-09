@@ -109,30 +109,11 @@ export const content = {
     )
     state.tracks[tracksIdx].data[clipIdx].isWaveformShown = isWaveformShown
   },
-  // deprecated
-  stopIsScenePlaying(state, { payload: { sceneIdx } }) {
-    state.tracks.forEach((track, idx) => {
-      if (track.data[sceneIdx]) {
-        state.tracks[idx].data[sceneIdx].isPlaying = false
-      }
-    })
-  },
   stopAll(state) {
     state.tracks.forEach((track, idx) => {
       track.data.forEach((clip, clipIdx) => {
         state.tracks[idx].data[clipIdx].isPlaying = false
       })
-    })
-  },
-  // deprecated
-  toggleIsScenePlaying(state, { payload: { sceneIdx } }) {
-    state.tracks.forEach((track, idx) => {
-      state.tracks[idx].data.forEach((clip, idxx) => {
-        state.tracks[idx].data[idxx].isPlaying = false
-      })
-      if (track.data[sceneIdx]) {
-        state.tracks[idx].data[sceneIdx].isPlaying = true
-      }
     })
   }
 }

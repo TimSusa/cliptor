@@ -106,13 +106,11 @@ export const content = {
           }
         ]
       }
-    ],
-    sceneIdx: null
+    ]
   },
   viewSettings: {
     bpm: 95,
     windowFrameInSteps: 4,
-    currentSceneIdx: null,
     columns: 18,
     availableDrivers: {
       inputs: {
