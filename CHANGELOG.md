@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.14](https://github.com/TimSusa/cliptor/compare/v0.0.13...v0.0.14) (2021-01-09)
+
+
+### Features
+
+* Add link to the installer in webdemo; Bump version ([2e923fe](https://github.com/TimSusa/cliptor/commit/2e923fe32930b7ee13cbf942f56af7229d348efa))
+* Establish latency compensated clip playback! YAY! ([f81788a](https://github.com/TimSusa/cliptor/commit/f81788a4bf4401a7fbe35f2cc0bbc7201b855893))
+* Establish Stopping all clips globally ([5f719db](https://github.com/TimSusa/cliptor/commit/5f719db611f1db8d5806b4261bc3a6a2d2fc8b4d))
+* Establish Timer clock value label in menubar ([7bf9878](https://github.com/TimSusa/cliptor/commit/7bf9878fbc636a2918f43b75ac054f4710b8a1ad))
+* use only registered clips ([ce157f9](https://github.com/TimSusa/cliptor/commit/ce157f93133ac6163b36eee29ed844bfeaf90c69))
+
+
+### Bug Fixes
+
+* Get rid of failing loading feature ([a5856ea](https://github.com/TimSusa/cliptor/commit/a5856ea1a368ef3ad88daa37c424d01a6af0f19f))
+* Stop only if play was called ([70413b0](https://github.com/TimSusa/cliptor/commit/70413b07e5ae0a99004dc4013d4e730ffff2147d))
+
 ### [0.0.13](https://github.com/TimSusa/cliptor/compare/v0.0.12...v0.0.13) (2021-01-07)
 
 
