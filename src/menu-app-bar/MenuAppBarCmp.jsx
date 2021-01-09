@@ -43,6 +43,20 @@ function MenuAppBarCmp(props) {
           <Typography variant='h6' className={classes.typoColorStyle}>
             Cliptor
           </Typography>
+
+          {process.env.REACT_APP_IS_WEB_MODE === 'true' && (
+            <React.Fragment>
+              <Typography className={classes.typoColorStyle}>
+                This is a WEB -DEMO:
+              </Typography>
+              <a
+                className={classes.typoColorStyle}
+                href={'https://github.com/TimSusa/cliptor/releases'}
+              >
+                Download here!
+              </a>
+            </React.Fragment>
+          )}
           <TimerClockLabel></TimerClockLabel>
 
           <IconButton
