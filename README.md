@@ -58,7 +58,7 @@ Below you will find a step by step guide to set up local develpment environment.
 At first copy the .env.sample to .env, if you have none.
 
 ```
-yarn
+yarn install
 ```
 
 # Webapp
