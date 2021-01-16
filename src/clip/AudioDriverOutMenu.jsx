@@ -45,7 +45,7 @@ export function AudioDriverOutMenu(props) {
       <Select
         labelId='audio-driver-out-label'
         id='audio-driver-out'
-        value={driverName ? driverName : defaultDriver.trim().substr(10)}
+        value={driverName ? driverName : defaultDriver}
         onChange={handleChange}
       >
         {(audioDriverOuts || []).map((driver, idx) => {
