@@ -14,6 +14,7 @@ import context from '../global-state/context'
 import { actionsViewSettings, actionsContent } from '../global-state'
 //import { clock } from '../global-state/thunks/clock'
 import { playbackStates } from '../global-state/reducers/view-settings'
+import { clock } from '../global-state/thunks/clock'
 import { TimerClockLabel } from './TimerClockLabel'
 
 export const MenuAppBar = MenuAppBarCmp
@@ -78,7 +79,8 @@ function MenuAppBarCmp(props) {
               variant='standard'
               defaultValue={bpm}
               onChange={(e) => {
-                dispatch(setBpm({ bpm: e.target.event }))
+                dispatch(setBpm({ bpm: e.target.value }))
+                dispatch(clock())
               }}
             />
             <TextField
@@ -95,8 +97,9 @@ function MenuAppBarCmp(props) {
               defaultValue={windowFrameInSteps}
               onChange={(e) => {
                 dispatch(
-                  setWindowFrameInSteps({ windowFrameInSteps: e.target.event })
+                  setWindowFrameInSteps({ windowFrameInSteps: e.target.value })
                 )
+                dispatch(clock())
               }}
             />
             <TimerClockLabel></TimerClockLabel>
