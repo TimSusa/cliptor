@@ -24,21 +24,11 @@ export function initDrivers() {
 
 async function scanForAudioDrivers() {
   let list = []
-  return new Promise((resolve, reject) => {
-    if (isSafari()) {
-      resolve([])
-    }
-    navigator.getUserMedia(
-      { audio: true, video: false },
-      async function () {
-        list = await refreshDeviceList(list)
-        resolve(list)
-      },
-      function (err) {
-        reject(err)
-      }
-    )
-  })
+  if (isSafari()) {
+    return list
+  }
+  const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+  if(stream) return await refreshDeviceList(list)
 }
 async function refreshDeviceList(listl) {
   const devices = await navigator.mediaDevices.enumerateDevices()
