@@ -16,6 +16,7 @@ import Slider from '@material-ui/core/Slider'
 import { ButtonLoadAudioFile } from './ButtonLoadAudioFile'
 import { actionsContent, actionsViewSettings } from '../global-state'
 import { AudioDriverOutMenu } from './AudioDriverOutMenu'
+import { VuMeter } from './VuMeter'
 import context from '../global-state/context'
 import { isSafari } from '../utils/is-safari'
 
@@ -63,6 +64,7 @@ export function Clip({ url, tracksId, clipId }) {
     const options = formWaveSurferOptions(waveformRef.current)
     wavesurfer.current = WaveSurfer.create(options)
     wavesurfer.current.load(url)
+
     wavesurfer.current.on('finish', () => {
       const duration = wavesurfer.current.getDuration()
       nrOfCycles.current++
@@ -236,12 +238,28 @@ export function Clip({ url, tracksId, clipId }) {
       </div>
       <div
         style={{
-          width: '100%',
-          display: isWaveformShown ? 'unset' : 'none'
+          display: 'flex',
+          width: '100%'
         }}
-        id='waveform'
-        ref={waveformRef}
-      />
+      >
+        {wavesurfer.current && (
+          <VuMeter
+            style={{
+              width: '10%',
+              display: isWaveformShown ? 'unset' : 'none'
+            }}
+            wavesurfer={wavesurfer.current}
+          ></VuMeter>
+        )}
+        <div
+          style={{
+            width: '90%',
+            display: isWaveformShown ? 'unset' : 'none'
+          }}
+          id='waveform'
+          ref={waveformRef}
+        />
+      </div>
 
       <div style={{ width: '100%' }}>
         <Slider
@@ -324,4 +342,78 @@ Clip.propTypes = {
   clipId: PropTypes.any,
   tracksId: PropTypes.any,
   url: PropTypes.string
+}
+
+/* eslint-disable */
+function createAudioMeter(audioContext, clipLevel, averaging, clipLag) {
+  const processor = audioContext.createScriptProcessor(512)
+  processor.onaudioprocess = volumeAudioProcess
+  processor.clipping = false
+  processor.lastClip = 0
+  processor.volume = 0
+  processor.clipLevel = clipLevel || 0.98
+  processor.averaging = averaging || 0.95
+  processor.clipLag = clipLag || 750
+
+  // this will have no effect, since we don't copy the input to the output,
+  // but works around a current Chrome bug.
+  processor.connect(audioContext.destination)
+
+  processor.checkClipping = function () {
+    if (!this.clipping) {
+      return false
+    }
+    if (this.lastClip + this.clipLag < window.performance.now()) {
+      this.clipping = false
+    }
+    return this.clipping
+  }
+
+  processor.shutdown = function () {
+    this.disconnect()
+    this.onaudioprocess = null
+  }
+
+  return processor
+}
+
+function volumeAudioProcess(event) {
+  const buf = event.inputBuffer.getChannelData(0)
+  const bufLength = buf.length
+  let sum = 0
+  let x
+
+  // Do a root-mean-square on the samples: sum up the squares...
+  for (var i = 0; i < bufLength; i++) {
+    x = buf[i]
+    if (Math.abs(x) >= this.clipLevel) {
+      this.clipping = true
+      this.lastClip = window.performance.now()
+    }
+    sum += x * x
+  }
+
+  // ... then take the square root of the sum.
+  const rms = Math.sqrt(sum / bufLength)
+
+  // Now smooth this out with the averaging factor applied
+  // to the previous sample - take the max here because we
+  // want "fast attack, slow release."
+  this.volume = Math.max(rms, this.volume * this.averaging)
+  document.getElementById('audio-value').innerHTML = this.volume
+}
+
+function getAverageVolume(array) {
+  var values = 0
+  var average
+
+  var length = array.length
+
+  // get all the frequency amplitudes
+  for (var i = 0; i < length; i++) {
+    values += array[i]
+  }
+
+  average = values / length
+  return average
 }
