@@ -10,21 +10,16 @@ export function clock() {
       viewSettings: { bpm, windowFrameInSteps }
     } = getState()
 
-    var timerWorkerBlob = new Blob([
-      `var timeoutID=0;function schedule(){timeoutID=setTimeout(function(){postMessage('schedule'); schedule();},${
-        (60 / bpm) * windowFrameInSteps * 1000
-      });} onmessage = function(e) { if (e.data == 'start') { if (!timeoutID) schedule();} else if (e.data == 'stop') {if (timeoutID) clearTimeout(timeoutID); timeoutID=0;};}`
-    ])
-
-    // Obtain a blob URL reference to our worker 'file'.
-    var timerWorkerBlobURL = window.URL.createObjectURL(timerWorkerBlob)
-
-    timerWorker = new Worker(timerWorkerBlobURL)
+    timerWorker = getWorker(bpm, windowFrameInSteps)
     timerWorker.onmessage = nextTick
-
     timerWorker.postMessage('init') // Start the worker.
     timerWorker.postMessage('start')
-
+    console.log(
+      'Clock initialized with BPM: ',
+      bpm,
+      ' and Clip Rate: ',
+      windowFrameInSteps
+    )
     function nextTick() {
       const {
         viewSettings: { registeredClips }
@@ -36,4 +31,15 @@ export function clock() {
       }
     }
   }
+}
+
+function getWorker(bpm, windowFrameInSteps) {
+  const blob = new Blob([
+    `var timeoutID=0;function schedule(){timeoutID=setTimeout(function(){postMessage('schedule'); schedule();},${
+      (60 / bpm) * windowFrameInSteps * 1000
+    });} onmessage = function(e) { if (e.data == 'start') { if (!timeoutID) schedule();} else if (e.data == 'stop') {if (timeoutID) clearTimeout(timeoutID); timeoutID=0;};}`
+  ])
+
+  const timerWorkerBlobURL = window.URL.createObjectURL(blob)
+  return new Worker(timerWorkerBlobURL)
 }
