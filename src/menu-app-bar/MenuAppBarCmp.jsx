@@ -104,6 +104,7 @@ function MenuAppBarCmp(props) {
             <IconButton
               aria-label='stop'
               onClick={() => {
+                audioContext.suspend()
                 dispatch(stopAll())
                 dispatch(
                   setPlaybackState({
