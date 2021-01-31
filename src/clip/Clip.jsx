@@ -103,7 +103,6 @@ export function Clip({ url, tracksId, clipId }) {
       )
       playWasCalled.current = true
     } else if (playWasCalled.current) {
-      audioContext.suspend()
       wavesurfer.current.stop(
         audioContext.currentTime +
           audioContext.baseLatency -
